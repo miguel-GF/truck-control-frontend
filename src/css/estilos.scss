@@ -1,0 +1,28 @@
+@import "colores";
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.d-center {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos en el contenedor */
+  justify-content: center;
+}
+
+.d-end {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos en el contenedor */
+  justify-content: flex-end;
+}
+
+.d-start {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos en el contenedor */
+  justify-content: flex-start;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
