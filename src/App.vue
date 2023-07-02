@@ -2,50 +2,8 @@
   <el-container class="layout">
     <el-container>
       <!-- <el-aside class="el-aside" width="200px">Aside</el-aside> -->
-      <el-menu
-        default-active="0"
-        class="el-menu-vertical-demo"
-        :collapse="true"
-      >
-        <!--<el-sub-menu index="1">
-          <template #title>
-            <el-icon><UserFilled /></el-icon>
-            <span>Navigator One</span>
-          </template>
-          <el-menu-item-group>
-            <template #title><span>Group One</span></template>
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
-            <template #title><span>item four</span></template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu> -->
-        <template v-for="(opc, i) in menuOpciones" :key="i">
-          <ItemMenu
-            :titulo="opc.titulo"
-            :index="String(i)"
-            :icono="opc.icono"
-            :ruta="opc.ruta"
-          />
-        </template>
-      </el-menu>
-      <el-drawer v-model="drawer" title="Menu" direction="ltr" size="20%">
-        <div class="cursor-pointer">
-          <el-row justify="space-between">
-            <el-col :span="4">
-              <el-icon>
-                <UserFilled />
-              </el-icon>
-            </el-col>
-            <el-col :span="20">2</el-col>
-          </el-row>
-        </div>
-      </el-drawer>
+      <TheDrawer :mostrar="drawer" @cerrar="cerrar" />
+      <ListMenu />
       <el-container>
         <el-header class="el-header">
           <el-row justify="space-between">
@@ -69,17 +27,15 @@
 </template>
 
 <script setup>
-import { ref, shallowRef } from "vue";
-import { ElIcon } from "element-plus";
-import { HomeFilled, UserFilled } from "@element-plus/icons-vue";
-import ItemMenu from "./components/ItemMenu.vue";
+import { ref, defineAsyncComponent } from "vue";
+import ListMenu from "./components/menu/ListMenu.vue";
+const TheDrawer = defineAsyncComponent(() =>
+  import("./components/TheDrawer.vue")
+);
 const drawer = ref(false);
-const userFilledRef = shallowRef(UserFilled);
-const homeFilledRef = shallowRef(HomeFilled);
-const menuOpciones = ref([
-  { titulo: "Home", icono: homeFilledRef, ruta: "/" },
-  { titulo: "Operadores", icono: userFilledRef, ruta: "/operadores" },
-]);
+const cerrar = () => {
+  drawer.value = false;
+};
 </script>
 
 <style lang="scss" #scope>
