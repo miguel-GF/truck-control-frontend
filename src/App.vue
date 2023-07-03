@@ -2,12 +2,22 @@
   <el-container class="layout">
     <el-container>
       <!-- <el-aside class="el-aside" width="200px">Aside</el-aside> -->
-      <TheDrawer :mostrar="drawer" @cerrar="cerrar" />
-      <ListMenu />
+      <TheDrawer
+        v-if="isMobile"
+        titulo="Menu"
+        :mostrar="drawer"
+        @cerrar="cerrar"
+      >
+        <template #body><ListMenu :isMobile="isMobile" /></template>
+      </TheDrawer>
+      <ListMenu v-else />
       <el-container>
         <el-header class="el-header">
-          <el-row justify="space-between">
-            <el-icon @click="drawer = !drawer" class="cursor-pointer">
+          <el-row :justify="!isMobile ? 'end' : 'space-between'">
+            <el-icon
+              @click="drawer = !drawer"
+              class="cursor-pointer hidden-sm-and-up"
+            >
               <Expand />
             </el-icon>
             <el-icon class="cursor-pointer">
@@ -27,15 +37,28 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
+import { ref, defineAsyncComponent, onMounted, onBeforeUnmount } from "vue";
 import ListMenu from "./components/menu/ListMenu.vue";
 const TheDrawer = defineAsyncComponent(() =>
   import("./components/TheDrawer.vue")
 );
 const drawer = ref(false);
+const isMobile = ref(false);
 const cerrar = () => {
   drawer.value = false;
 };
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+onMounted(() => {
+  window.addEventListener("resize", checkMobile);
+  checkMobile();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", checkMobile);
+  isMobile.value = false;
+});
 </script>
 
 <style lang="scss" #scope>

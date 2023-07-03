@@ -1,5 +1,9 @@
 <template>
-  <el-menu default-active="0" class="el-menu-vertical-demo" :collapse="true">
+  <el-menu
+    default-active="0"
+    :collapse="!props.isMobile"
+    :class="[{ 'no-border': isMobile }]"
+  >
     <!--<el-sub-menu index="1">
           <template #title>
             <el-icon><UserFilled /></el-icon>
@@ -24,13 +28,14 @@
         :index="String(i)"
         :icono="opc.icono"
         :ruta="opc.ruta"
+        :isMobile="props.isMobile"
       />
     </template>
   </el-menu>
 </template>
 
 <script setup>
-import { ref, shallowRef } from "vue";
+import { ref, shallowRef, defineProps } from "vue";
 import { HomeFilled, UserFilled } from "@element-plus/icons-vue";
 import ItemMenu from "./ItemMenu.vue";
 const userFilledRef = shallowRef(UserFilled);
@@ -39,4 +44,10 @@ const menuOpciones = ref([
   { titulo: "Home", icono: homeFilledRef, ruta: "/home" },
   { titulo: "Operadores", icono: userFilledRef, ruta: "/operadores" },
 ]);
+const props = defineProps({
+  isMobile: {
+    type: Boolean,
+    default: false,
+  },
+});
 </script>

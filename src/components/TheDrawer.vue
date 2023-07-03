@@ -1,21 +1,12 @@
 <template>
   <el-drawer
     v-model="drawer"
-    title="Menu"
+    :title="titulo"
     direction="rtl"
     :size="isMobile ? '100%' : '33%'"
     :before-close="beforeClose"
   >
-    <div class="cursor-pointer">
-      <el-row justify="space-between">
-        <el-col :span="4">
-          <el-icon>
-            <UserFilled />
-          </el-icon>
-        </el-col>
-        <el-col :span="20">2</el-col>
-      </el-row>
-    </div>
+    <div class="p-2"><slot name="body">Es el cuerpo</slot></div>
   </el-drawer>
 </template>
 
@@ -28,13 +19,16 @@ import {
   defineProps,
   defineEmits,
 } from "vue";
-import { ElDrawer, ElIcon } from "element-plus";
-import { UserFilled } from "@element-plus/icons-vue";
+import { ElDrawer } from "element-plus";
 
 const props = defineProps({
   mostrar: {
     type: Boolean,
     default: false,
+  },
+  titulo: {
+    type: String,
+    default: "",
   },
 });
 
@@ -45,7 +39,7 @@ const isMobile = ref(false);
 
 // Verificar si la pantalla es móvil en función del ancho de la ventana
 const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
+  isMobile.value = window.innerWidth <= 767;
 };
 
 watch(

@@ -1,11 +1,12 @@
 <template>
-  <router-link :to="props.ruta">
+  <router-link :to="props.ruta" :class="[{ 'txt-decoration-none': isMobile }]">
     <el-menu-item :index="props.index">
       <el-icon><component :is="props.icono" /></el-icon>
       <template #title>
         {{ props.titulo || "--" }}
       </template>
     </el-menu-item>
+    <el-divider class="no-margin-divider" />
   </router-link>
 </template>
 
@@ -26,6 +27,10 @@ const props = defineProps({
   ruta: {
     type: String,
     default: "/",
+  },
+  isMobile: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
