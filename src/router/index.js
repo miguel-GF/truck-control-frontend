@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/home",
+    path: "/",
     name: "home",
     component: () =>
       import(/* webpackChunkName: "home" */ "../views/HomeView.vue"),
@@ -10,7 +10,7 @@ const routes = [
   {
     path: "/operadores",
     name: "operadores",
-    component: () => import("../views/OperadorView.vue"),
+    component: () => import("../views/operadores/OperadorView.vue"),
   },
 ];
 

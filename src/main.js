@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import ElementPlus from "element-plus";
@@ -7,8 +8,10 @@ import "element-plus/theme-chalk/display.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import es from "element-plus/dist/locale/es.mjs";
 import { showLoading } from "./globalProperties/loader";
+import { get, post, del, patch } from "./api/api";
 
 const app = createApp(App);
+const pinia = createPinia();
 app.use(ElementPlus, {
   locale: es,
 });
@@ -16,5 +19,18 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
 app.use(router);
+app.use(pinia);
+
+// Servicios globales
+app.provide("$showLoading", showLoading);
+
+// Propiedades globales
 app.config.globalProperties.$showLoading = showLoading;
+app.config.globalProperties.$http = {
+  get,
+  post,
+  del,
+  patch,
+};
+
 app.mount("#app");
