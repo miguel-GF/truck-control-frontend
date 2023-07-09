@@ -41,7 +41,7 @@ import ItemMenu from "./ItemMenu.vue";
 const userFilledRef = shallowRef(UserFilled);
 const homeFilledRef = shallowRef(HomeFilled);
 const menuOpciones = ref([
-  { titulo: "Home", icono: homeFilledRef, ruta: "/home" },
+  { titulo: "Home", icono: homeFilledRef, ruta: "/" },
   { titulo: "Operadores", icono: userFilledRef, ruta: "/operadores" },
 ]);
 const props = defineProps({
