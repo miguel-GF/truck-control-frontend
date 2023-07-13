@@ -6,9 +6,17 @@
     :size="isMobile ? '100%' : '33%'"
     :before-close="beforeClose"
   >
-    <div class="p-2">
-      <slot name="body">Es el cuerpo</slot>
-    </div>
+    <el-form
+      label-position="top"
+      label-width="100px"
+      :model="modelForm"
+      :rules="rulesForm"
+      ref="formRef"
+    >
+      <div class="p-2">
+        <slot name="body">Es el cuerpo</slot>
+      </div>
+    </el-form>
     <template #footer v-if="mostrarFooter">
       <div>
         <el-button @click="emit('cerrar')">Cerrar</el-button>
@@ -27,8 +35,6 @@ import {
   defineProps,
   defineEmits,
 } from "@/importsVue";
-import { ElDrawer } from "element-plus";
-
 const props = defineProps({
   mostrar: {
     type: Boolean,
@@ -41,6 +47,14 @@ const props = defineProps({
   mostrarFooter: {
     type: Boolean,
     default: true,
+  },
+  modelForm: {
+    type: Object,
+    default: () => {},
+  },
+  rulesForm: {
+    type: Object,
+    default: () => {},
   },
 });
 
@@ -77,5 +91,15 @@ onBeforeUnmount(() => {
   drawer.value = false;
 });
 
-const aceptarClick = () => emit("aceptar");
+const formRef = ref(null); // referencia del formulario
+const aceptarClick = () => {
+  formRef.value.validate((valid) => {
+    if (valid) {
+      console.log("correcto! :D");
+      emit("aceptar");
+    } else {
+      console.log("no es valiod algo falta");
+    }
+  });
+};
 </script>
