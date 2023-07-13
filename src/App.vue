@@ -11,7 +11,7 @@
         <template #body><ListMenu :isMobile="isMobile" /></template>
       </TheDrawer>
       <ListMenu v-else />
-      <el-container>
+      <el-container class="container-app">
         <el-header class="el-header">
           <el-row :justify="!isMobile ? 'end' : 'space-between'">
             <el-icon
