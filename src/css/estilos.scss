@@ -7,6 +7,11 @@ body {
 }
 
 .header-view {
+  border-radius: 0px !important;
+  margin-bottom: 20px;
+  .el-card__body {
+    padding-block: 10px;
+  }
   .title {
     margin-bottom: 6px;
   }
@@ -18,8 +23,9 @@ body {
 
 .tabla-gestor {
   min-height: 200px !important;
-  width: calc(100vw - 100px) !important;
-  height: calc(100vh - 170px) !important;
+  // width: calc(100vw - 100px) !important;
+  padding-inline: 20px;
+  height: calc(100vh - 190px) !important;
 }
 
 .d-center {
