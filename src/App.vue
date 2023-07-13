@@ -37,6 +37,7 @@
 </template>
 
 <script setup>
+import { useAppStore } from "@/stores/appStore.js";
 import {
   ref,
   defineAsyncComponent,
@@ -47,13 +48,16 @@ import ListMenu from "./components/menu/ListMenu.vue";
 const TheDrawer = defineAsyncComponent(() =>
   import("./components/TheDrawer.vue")
 );
+const useApp = useAppStore();
+const { setIsMobile } = useApp;
 const drawer = ref(false);
 const isMobile = ref(false);
 const cerrar = () => {
   drawer.value = false;
 };
-const checkMobile = () => {
+const checkMobile = async () => {
   isMobile.value = window.innerWidth <= 768;
+  await setIsMobile(window.innerWidth <= 768);
 };
 onMounted(() => {
   window.addEventListener("resize", checkMobile);
