@@ -25,7 +25,7 @@
             </el-icon>
           </el-row>
         </el-header>
-        <el-main>
+        <el-main class="el-main">
           <router-view />
         </el-main>
         <el-footer class="el-footer d-end" height="24px">
@@ -90,6 +90,10 @@ onBeforeUnmount(() => {
 /* Distribuye el espacio restante horizontalmente */
 .el-header .el-row {
   flex-grow: 1;
+}
+
+.el-main {
+  padding: 0 !important;
 }
 
 .layout {
