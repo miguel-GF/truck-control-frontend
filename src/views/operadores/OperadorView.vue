@@ -1,20 +1,17 @@
 <template>
-  <el-container>
-    <el-row>
-      <TheHeader
-        class="header-view"
-        placeholder="Buscar por Clave / Nombre"
-        @buscar="filtrar"
-        @agregar="agregar()"
-      />
-      <!-- <el-scrollbar style="height: calc(100vh - 460px)"> -->
-      <!-- Ajusta la altura según tus necesidades -->
-      <el-col :span="24">
-        <OperadorList />
-      </el-col>
-      <!-- </el-scrollbar> -->
-    </el-row>
-  </el-container>
+  <TheHeader
+    placeholder="Buscar por Clave / Nombre"
+    @buscar="filtrar"
+    @agregar="agregar()"
+  />
+  <!-- <el-container> -->
+  <!-- Ajusta la altura según tus necesidades -->
+  <el-row>
+    <el-col :span="24">
+      <OperadorList />
+    </el-col>
+  </el-row>
+  <!-- </el-container> -->
 </template>
 
 <script setup>
