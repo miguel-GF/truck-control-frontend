@@ -6,7 +6,15 @@
     :size="isMobile ? '100%' : '33%'"
     :before-close="beforeClose"
   >
-    <div class="p-2"><slot name="body">Es el cuerpo</slot></div>
+    <div class="p-2">
+      <slot name="body">Es el cuerpo</slot>
+    </div>
+    <template #footer v-if="mostrarFooter">
+      <div>
+        <el-button @click="emit('cerrar')">Cerrar</el-button>
+        <el-button type="primary" @click="aceptarClick">Aceptar</el-button>
+      </div>
+    </template>
   </el-drawer>
 </template>
 
@@ -30,9 +38,13 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  mostrarFooter: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const emit = defineEmits(["cerrar"]);
+const emit = defineEmits(["cerrar", "aceptar"]);
 
 const drawer = ref(false);
 const isMobile = ref(false);
@@ -64,4 +76,6 @@ onBeforeUnmount(() => {
   window.removeEventListener("resize", checkMobile);
   drawer.value = false;
 });
+
+const aceptarClick = () => emit("aceptar");
 </script>

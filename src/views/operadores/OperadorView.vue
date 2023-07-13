@@ -2,26 +2,33 @@
   <TheHeader
     placeholder="Buscar por Clave / Nombre"
     @buscar="filtrar"
-    @agregar="agregar()"
+    @agregar="abrirAgregar()"
   />
-  <!-- <el-container> -->
-  <!-- Ajusta la altura según tus necesidades -->
   <el-row>
     <el-col :span="24">
       <OperadorList />
     </el-col>
   </el-row>
-  <!-- </el-container> -->
+  <TheDrawer
+    titulo="Agregar operador"
+    :mostrar="mostrarAgregar"
+    @cerrar="mostrarAgregar = false"
+    @aceptar="agregarOperador"
+  >
+    <template #body> hola</template>
+  </TheDrawer>
 </template>
 
 <script setup>
 import OperadorList from "./OperadorList.vue";
-import TheHeader from "../../components/TheHeader.vue";
+import { ref } from "@/importsVue";
 import { useOperadorStore } from "@/stores/operadorStore.js";
+const mostrarAgregar = ref(false);
 const useOperadores = useOperadorStore();
 const { filtrarListar } = useOperadores;
 const filtrar = async (busqueda) => {
   await filtrarListar(busqueda);
 };
-const agregar = () => console.log("agregar");
+const abrirAgregar = () => (mostrarAgregar.value = true);
+const agregarOperador = () => console.log("Agregar operador");
 </script>

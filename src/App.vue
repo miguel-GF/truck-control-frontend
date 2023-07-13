@@ -6,6 +6,7 @@
         v-if="isMobile"
         titulo="Menu"
         :mostrar="drawer"
+        :mostrarFooter="false"
         @cerrar="cerrar"
       >
         <template #body><ListMenu :isMobile="isMobile" /></template>
@@ -38,16 +39,8 @@
 
 <script setup>
 import { useAppStore } from "@/stores/appStore.js";
-import {
-  ref,
-  defineAsyncComponent,
-  onMounted,
-  onBeforeUnmount,
-} from "@/importsVue";
+import { ref, onMounted, onBeforeUnmount } from "@/importsVue";
 import ListMenu from "./components/menu/ListMenu.vue";
-const TheDrawer = defineAsyncComponent(() =>
-  import("./components/TheDrawer.vue")
-);
 const useApp = useAppStore();
 const { setIsMobile } = useApp;
 const drawer = ref(false);

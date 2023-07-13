@@ -1,4 +1,5 @@
 import {
+  createApp,
   ref,
   shallowRef,
   onMounted,
@@ -13,6 +14,7 @@ import {
 } from "vue";
 
 export {
+  createApp,
   ref,
   shallowRef,
   onMounted,
