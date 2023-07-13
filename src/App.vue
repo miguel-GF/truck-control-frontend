@@ -8,6 +8,7 @@
         :mostrar="drawer"
         :mostrarFooter="false"
         @cerrar="cerrar"
+        class="custom-title"
       >
         <template #body><ListMenu :isMobile="isMobile" /></template>
       </TheDrawer>

@@ -14,6 +14,7 @@
     :mostrar="mostrarAgregar"
     @cerrar="mostrarAgregar = false"
     @aceptar="agregarOperador"
+    class="custom-title"
   >
     <template #body> hola</template>
   </TheDrawer>
