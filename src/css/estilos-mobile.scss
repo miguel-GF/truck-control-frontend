@@ -1,0 +1,8 @@
+/* Estilos para pantallas mobile */
+@media screen and (max-width: 768px) {
+  .tabla-gestor-mobile {
+    min-height: 200px !important;
+    width: calc(100vw - 40px) !important;
+    height: calc(100vh - 170px) !important;
+  }
+}
