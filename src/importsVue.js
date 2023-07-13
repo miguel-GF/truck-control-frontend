@@ -1,5 +1,6 @@
 import {
   createApp,
+  reactive,
   ref,
   shallowRef,
   onMounted,
@@ -11,10 +12,12 @@ import {
   defineEmits,
   defineAsyncComponent,
   inject,
+  toRef,
 } from "vue";
 
 export {
   createApp,
+  reactive,
   ref,
   shallowRef,
   onMounted,
@@ -26,4 +29,5 @@ export {
   defineEmits,
   defineAsyncComponent,
   inject,
+  toRef,
 };
