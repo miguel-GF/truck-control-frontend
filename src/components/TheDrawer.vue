@@ -18,7 +18,7 @@ import {
   watch,
   defineProps,
   defineEmits,
-} from "vue";
+} from "@/importsVue";
 import { ElDrawer } from "element-plus";
 
 const props = defineProps({

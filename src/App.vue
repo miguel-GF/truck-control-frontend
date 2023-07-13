@@ -37,7 +37,12 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent, onMounted, onBeforeUnmount } from "vue";
+import {
+  ref,
+  defineAsyncComponent,
+  onMounted,
+  onBeforeUnmount,
+} from "@/importsVue";
 import ListMenu from "./components/menu/ListMenu.vue";
 const TheDrawer = defineAsyncComponent(() =>
   import("./components/TheDrawer.vue")

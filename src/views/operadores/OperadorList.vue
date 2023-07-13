@@ -1,7 +1,7 @@
 <script setup>
 import { useOperadorStore } from "@/stores/operadorStore.js";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, inject } from "vue";
+import { onBeforeMount, inject, ref } from "@/importsVue";
 
 const useOperadores = useOperadorStore();
 const { operadores } = storeToRefs(useOperadores);

@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps } from "@/importsVue";
 const props = defineProps({
   index: {
     type: String,

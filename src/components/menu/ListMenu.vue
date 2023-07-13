@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, shallowRef, defineProps } from "vue";
+import { ref, shallowRef, defineProps } from "@/importsVue";
 import { HomeFilled, UserFilled } from "@element-plus/icons-vue";
 import ItemMenu from "./ItemMenu.vue";
 const userFilledRef = shallowRef(UserFilled);
