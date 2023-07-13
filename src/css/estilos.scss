@@ -5,6 +5,22 @@ body {
   margin: 0;
 }
 
+.header-view {
+  .title {
+    margin-bottom: 6px;
+  }
+}
+
+.container-app {
+  flex-basis: 0 !important;
+}
+
+.tabla-gestor {
+  min-height: 200px !important;
+  width: calc(100vw - 100px) !important;
+  height: calc(100vh - 170px) !important;
+}
+
 .d-center {
   display: flex;
   align-items: center; /* Centra verticalmente los elementos en el contenedor */
