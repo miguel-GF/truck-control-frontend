@@ -1,11 +1,14 @@
 <script setup>
 import { useOperadorStore } from "@/stores/operadorStore.js";
+import { useAppStore } from "@/stores/appStore.js";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, inject, ref } from "@/importsVue";
 
-const useOperadores = useOperadorStore();
-const { filtradosOperadores } = storeToRefs(useOperadores);
-const { listar } = useOperadores;
+const useOperador = useOperadorStore();
+const useApp = useAppStore();
+const { filtradosOperadores } = storeToRefs(useOperador);
+const { isMobile } = storeToRefs(useApp);
+const { listar } = useOperador;
 const showLoading = inject("$showLoading");
 const columnas = ref([
   {
@@ -51,7 +54,7 @@ onBeforeMount(async () => {
     :data="filtradosOperadores"
     stripe
     table-layout="fixed"
-    class="tabla-gestor"
+    :class="!isMobile ? 'tabla-gestor' : 'tabla-gestor-mobile'"
   >
     <el-table-column
       v-for="columna in columnas"
