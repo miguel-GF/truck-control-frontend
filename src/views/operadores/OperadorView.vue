@@ -13,7 +13,7 @@
     titulo="Agregar operador"
     :mostrar="mostrarAgregar"
     :modelForm="operadorAltaObj"
-    :rulesForm="rules"
+    :rulesForm="rulesForm"
     @cerrar="mostrarAgregar = false"
     @aceptar="agregarOperador"
     class="custom-title"
@@ -23,18 +23,23 @@
         <el-input
           placeholder="Nombre o nombres del operador"
           v-model="operadorAltaObj.nombre"
+          clearable
         />
       </el-form-item>
       <el-form-item label="Apellidos" prop="apellidos">
         <el-input
           placeholder="Apellidos del operador"
           v-model="operadorAltaObj.apellidos"
+          clearable
         ></el-input>
       </el-form-item>
       <el-form-item label="Teléfono" prop="telefono">
         <el-input
           placeholder="10 dígitos"
           v-model="operadorAltaObj.telefono"
+          v-mask="'(###) ###-##-##'"
+          clearable
+          @input="updateValidationTrigger('telefono')"
         ></el-input>
       </el-form-item>
     </template>
@@ -58,27 +63,36 @@ const operadorAltaObj = reactive({
   apellidos: "",
   telefono: "",
 });
-const rules = reactive({
+const rulesForm = reactive({
   nombre: [
     {
       required: true,
       message: `Nombre es obligatorio`,
-      trigger: "change",
+      trigger: "blur",
     },
   ],
   apellidos: [
     {
       required: true,
       message: `Apellidos es obligatorio`,
-      trigger: "change",
+      trigger: "blur",
     },
   ],
   telefono: [
     {
-      required: true,
-      message: `Teléfono es obligatorio`,
-      trigger: "change",
+      required: false,
+      min: 15,
+      max: 15,
+      message: "Deben ser 10 dígitos",
+      trigger: "blur",
     },
   ],
 });
+const updateValidationTrigger = (field) => {
+  if (operadorAltaObj[field]) {
+    rulesForm[field][0].trigger = "change";
+  } else {
+    rulesForm[field][0].trigger = "blur";
+  }
+};
 </script>

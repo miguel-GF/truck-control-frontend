@@ -12,6 +12,7 @@
                   @input="buscar()"
                   size="small"
                   :placeholder="props.placeholder"
+                  clearable
                 />
               </el-col>
               <el-col :span="8"></el-col>

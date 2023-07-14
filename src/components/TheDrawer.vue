@@ -10,7 +10,7 @@
       label-position="top"
       label-width="100px"
       :model="modelForm"
-      :rules="rulesForm"
+      :rules="props.rulesForm"
       ref="formRef"
     >
       <div class="p-2">
