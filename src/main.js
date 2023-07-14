@@ -6,6 +6,7 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/display.css";
 import es from "element-plus/dist/locale/es.mjs";
+import VueTheMask from "vue-the-mask";
 import { showLoading } from "./globalProperties/loader";
 import { get, post, del, patch } from "./api/api";
 // Componentes
@@ -27,7 +28,7 @@ app.component(TheDrawer);
 app.component(TheHeader);
 app.use(router);
 app.use(pinia);
-
+app.use(VueTheMask);
 // Servicios globales
 app.provide("$showLoading", showLoading);
 
