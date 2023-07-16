@@ -1,7 +1,7 @@
 import { mostrarMensaje } from "../globalProperties/message";
 const BASE_URL = "http://localhost:8000/api/v1";
 
-const sendRequest = async (url, method = "GET", data = null) => {
+const sendRequest = async (url, method = "POST", data = null) => {
   const config = {
     method,
     headers: {
@@ -15,13 +15,15 @@ const sendRequest = async (url, method = "GET", data = null) => {
 
   try {
     const response = await fetch(`${BASE_URL}/${url}`, config);
-    if (!response.ok) {
-      const mensaje = obtenerMensajeRespuesta(response.status);
-      mostrarMensaje(mensaje, "error");
+    const res = await response.json();
+    if (!res.exito) {
+      throw new Error(res.mensaje);
+    } else if (!response.ok) {
+      const mensaje = obtenerMensajeRespuesta(response);
       throw new Error(mensaje);
     }
 
-    return response.json();
+    return res;
   } catch (error) {
     mostrarMensaje(error.message, "error");
     throw new Error(error.message);
@@ -45,7 +47,7 @@ const sendRequestGet = async (url, method = "GET", params = null) => {
   try {
     const response = await fetch(fullPath, config);
     if (!response.ok) {
-      const mensaje = obtenerMensajeRespuesta(response.status);
+      const mensaje = obtenerMensajeRespuesta(response);
       throw new Error(mensaje);
     }
 
@@ -61,7 +63,7 @@ export const post = (url, data) => sendRequest(url, "POST", data);
 export const del = (url, data) => sendRequest(url, "DELETE", data);
 export const patch = (url, data) => sendRequest(url, "PATCH", data);
 
-const obtenerMensajeRespuesta = (status) => {
+const obtenerMensajeRespuesta = ({ status }) => {
   switch (Number(status)) {
     case 400:
       return "Bad request";
