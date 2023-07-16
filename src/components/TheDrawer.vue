@@ -5,6 +5,7 @@
     direction="rtl"
     :size="isMobile ? '100%' : '33%'"
     :before-close="beforeClose"
+    @open="emit('before-open')"
   >
     <el-form
       label-position="top"
@@ -21,7 +22,7 @@
       <div>
         <el-button @click="emit('cerrar')">Cerrar</el-button>
         <el-button type="primary" @click="aceptarClick" :loading="btnLoader">
-          Aceptar
+          {{ props.labelAceptar }}
         </el-button>
       </div>
     </template>
@@ -60,8 +61,12 @@ const props = defineProps({
     type: Object,
     default: () => {},
   },
+  labelAceptar: {
+    type: String,
+    default: "Aceptar",
+  },
 });
-const emit = defineEmits(["cerrar", "aceptar"]);
+const emit = defineEmits(["cerrar", "aceptar", "before-open"]);
 const useApp = useAppStore();
 const { btnLoader } = storeToRefs(useApp);
 const { changeBtnLoader } = useApp;
