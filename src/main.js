@@ -7,8 +7,11 @@ import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/display.css";
 import es from "element-plus/dist/locale/es.mjs";
 import VueTheMask from "vue-the-mask";
-import { showLoading } from "./globalProperties/loader";
+// Config http
 import { get, post, del, patch } from "./api/api";
+// Global properties
+import { showLoading } from "./globalProperties/loader";
+import { mostrarMensaje } from "./globalProperties/message";
 // Componentes
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import TheHeader from "./components/TheHeader.vue";
@@ -31,14 +34,15 @@ app.use(pinia);
 app.use(VueTheMask);
 // Servicios globales
 app.provide("$showLoading", showLoading);
-
+app.provide("$mostrarMensaje", mostrarMensaje);
 // Propiedades globales
-app.config.globalProperties.$showLoading = showLoading;
 app.config.globalProperties.$http = {
   get,
   post,
   del,
   patch,
 };
+app.config.globalProperties.$showLoading = showLoading;
+app.config.globalProperties.$mostrarMensaje = mostrarMensaje;
 
 app.mount("#app");
