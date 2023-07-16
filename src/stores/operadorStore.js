@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "@/importsVue";
-import { get } from "../api/api";
+import { get, post } from "../api/api";
 
 export const useOperadorStore = defineStore("operadores", () => {
   const operadores = ref([]);
@@ -23,10 +23,20 @@ export const useOperadorStore = defineStore("operadores", () => {
           .includes(busqueda.value.toLowerCase()) ||
         String(data.clave).toLowerCase().includes(busqueda.value.toLowerCase())
     ));
+  const agregar = async (datos) => {
+    try {
+      const respuesta = await post("operadores", datos);
+      operadores.value.push(respuesta.datos);
+      return respuesta;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
   return {
     operadores,
     filtradosOperadores,
     listar,
     filtrarListar,
+    agregar,
   };
 });

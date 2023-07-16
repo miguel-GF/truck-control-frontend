@@ -20,7 +20,9 @@
     <template #footer v-if="mostrarFooter">
       <div>
         <el-button @click="emit('cerrar')">Cerrar</el-button>
-        <el-button type="primary" @click="aceptarClick">Aceptar</el-button>
+        <el-button type="primary" @click="aceptarClick" :loading="btnLoader">
+          Aceptar
+        </el-button>
       </div>
     </template>
   </el-drawer>
@@ -35,6 +37,8 @@ import {
   defineProps,
   defineEmits,
 } from "@/importsVue";
+import { useAppStore } from "@/stores/appStore.js";
+import { storeToRefs } from "pinia";
 const props = defineProps({
   mostrar: {
     type: Boolean,
@@ -57,8 +61,10 @@ const props = defineProps({
     default: () => {},
   },
 });
-
 const emit = defineEmits(["cerrar", "aceptar"]);
+const useApp = useAppStore();
+const { btnLoader } = storeToRefs(useApp);
+const { changeBtnLoader } = useApp;
 
 const drawer = ref(false);
 const isMobile = ref(false);
@@ -96,6 +102,7 @@ const aceptarClick = () => {
   formRef.value.validate((valid) => {
     if (valid) {
       console.log("correcto! :D");
+      changeBtnLoader();
       emit("aceptar");
     } else {
       console.log("no es valiod algo falta");

@@ -48,16 +48,36 @@
 
 <script setup>
 import OperadorList from "./OperadorList.vue";
-import { ref, reactive } from "@/importsVue";
+import { ref, reactive, inject } from "@/importsVue";
 import { useOperadorStore } from "@/stores/operadorStore.js";
+import { useAppStore } from "@/stores/appStore.js";
+const showLoading = inject("$showLoading");
+const mostrarMensaje = inject("$mostrarMensaje");
 const mostrarAgregar = ref(false);
-const useOperadores = useOperadorStore();
-const { filtrarListar } = useOperadores;
+const useOperador = useOperadorStore();
+const useApp = useAppStore();
+const { filtrarListar, agregar } = useOperador;
+const { changeBtnLoader } = useApp;
 const filtrar = async (busqueda) => {
   await filtrarListar(busqueda);
 };
 const abrirAgregar = () => (mostrarAgregar.value = true);
-const agregarOperador = () => console.log("Agregar operador");
+const agregarOperador = async () => {
+  try {
+    showLoading(true, "Agregando...");
+    const res = await agregar(operadorAltaObj);
+    if (res.exito) {
+      mostrarMensaje(res.mensaje);
+      mostrarAgregar.value = false;
+      limpiarDatosAgregar();
+      changeBtnLoader();
+    }
+  } catch (error) {
+    //
+  } finally {
+    showLoading(false);
+  }
+};
 const operadorAltaObj = reactive({
   nombre: "",
   apellidos: "",
@@ -94,5 +114,10 @@ const updateValidationTrigger = (field) => {
   } else {
     rulesForm[field][0].trigger = "blur";
   }
+};
+const limpiarDatosAgregar = () => {
+  operadorAltaObj.nombre = "";
+  operadorAltaObj.apellidos = "";
+  operadorAltaObj.telefono = "";
 };
 </script>
