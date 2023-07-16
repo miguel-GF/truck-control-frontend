@@ -12,6 +12,7 @@ import { get, post, del, patch } from "./api/api";
 // Global properties
 import { showLoading } from "./globalProperties/loader";
 import { mostrarMensaje } from "./globalProperties/message";
+import { validarInputNoObligatorio } from "./globalProperties/input";
 // Componentes
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import TheHeader from "./components/TheHeader.vue";
@@ -44,5 +45,7 @@ app.config.globalProperties.$http = {
 };
 app.config.globalProperties.$showLoading = showLoading;
 app.config.globalProperties.$mostrarMensaje = mostrarMensaje;
+app.config.globalProperties.$validarInputNoObligatorio =
+  validarInputNoObligatorio;
 
 app.mount("#app");
