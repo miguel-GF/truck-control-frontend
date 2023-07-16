@@ -39,7 +39,9 @@
           v-model="operadorAltaObj.telefono"
           v-mask="'(###) ###-##-##'"
           clearable
-          @input="updateValidationTrigger('telefono')"
+          @input="
+            $validarInputNoObligatorio(rulesForm, operadorAltaObj, 'telefono')
+          "
         ></el-input>
       </el-form-item>
     </template>
@@ -108,13 +110,6 @@ const rulesForm = reactive({
     },
   ],
 });
-const updateValidationTrigger = (field) => {
-  if (operadorAltaObj[field]) {
-    rulesForm[field][0].trigger = "change";
-  } else {
-    rulesForm[field][0].trigger = "blur";
-  }
-};
 const limpiarDatosAgregar = () => {
   operadorAltaObj.nombre = "";
   operadorAltaObj.apellidos = "";
