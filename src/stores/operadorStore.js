@@ -43,7 +43,6 @@ export const useOperadorStore = defineStore("operadores", () => {
         operadores.value[index].apellidos = datos.apellidos;
         operadores.value[index].telefono = datos.telefono;
       }
-      operadores.value.push(respuesta.datos);
       return respuesta;
     } catch (error) {
       throw new Error(error);
