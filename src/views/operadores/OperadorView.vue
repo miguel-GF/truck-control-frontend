@@ -9,16 +9,12 @@
       <OperadorList />
     </el-col>
   </el-row>
-  <AgregarModal :mostrar="mostrarAgregar" @cerrar="mostrarAgregar = false" />
 </template>
 
 <script setup>
 import OperadorList from "./OperadorList.vue";
-import { ref, defineAsyncComponent } from "@/importsVue";
+import { ref } from "@/importsVue";
 import { useOperadorStore } from "@/stores/operadorStore.js";
-const AgregarModal = defineAsyncComponent(() =>
-  import("./modales/OperadorAgregarModal.vue")
-);
 const mostrarAgregar = ref(false);
 const useOperador = useOperadorStore();
 const { filtrarListar } = useOperador;
