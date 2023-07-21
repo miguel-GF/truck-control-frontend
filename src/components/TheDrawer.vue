@@ -5,6 +5,8 @@
     direction="rtl"
     :size="isMobile ? '100%' : '33%'"
     :before-close="beforeClose"
+    @closed="afterClose"
+    :destroy-on-close="true"
     @open="emit('before-open')"
   >
     <el-form
@@ -66,7 +68,7 @@ const props = defineProps({
     default: "Aceptar",
   },
 });
-const emit = defineEmits(["cerrar", "aceptar", "before-open"]);
+const emit = defineEmits(["cerrar", "aceptar", "before-open", "after-close"]);
 const useApp = useAppStore();
 const { btnLoader } = storeToRefs(useApp);
 const { changeBtnLoader } = useApp;
@@ -89,6 +91,9 @@ watch(
 const beforeClose = (done) => {
   done();
   emit("cerrar");
+};
+const afterClose = () => {
+  emit("after-close");
 };
 // Escuchar cambios en el tamaño de la ventana para actualizar isMobile
 onMounted(() => {
