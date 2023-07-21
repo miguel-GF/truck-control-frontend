@@ -94,3 +94,11 @@ body {
 .no-margin-divider {
   margin: 0 !important;
 }
+
+// *** GLOBALES *** //
+// PARA TABLAS
+.el-table__body-wrapper td .cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
