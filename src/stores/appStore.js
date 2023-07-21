@@ -5,7 +5,7 @@ export const useAppStore = defineStore("app", () => {
   const isMobile = ref(false);
   const setIsMobile = async (value) => (isMobile.value = value);
   const btnLoader = ref(false);
-  const changeBtnLoader = async () => (btnLoader.value = !btnLoader.value);
+  const changeBtnLoader = async (value = true) => (btnLoader.value = value);
   return {
     isMobile,
     setIsMobile,

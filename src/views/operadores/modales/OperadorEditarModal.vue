@@ -107,15 +107,16 @@ const limpiarDatos = () => {
 const editarOperador = async () => {
   try {
     showLoading(true, "Editando...");
+    changeBtnLoader();
     const res = await editar(operadorEditarObj);
     if (res.exito) {
       mostrarMensaje(res.mensaje);
-      changeBtnLoader();
+      changeBtnLoader(false);
       emit("cerrar");
       limpiarDatos();
     }
   } catch (error) {
-    changeBtnLoader();
+    changeBtnLoader(false);
   } finally {
     showLoading(false);
   }

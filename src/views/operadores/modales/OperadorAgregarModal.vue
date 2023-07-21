@@ -98,15 +98,16 @@ const limpiarDatos = () => {
 const agregarOperador = async () => {
   try {
     showLoading(true, "Agregar...");
+    changeBtnLoader();
     const res = await agregar(operadorAgregarObj);
     if (res.exito) {
       mostrarMensaje(res.mensaje);
-      changeBtnLoader();
+      changeBtnLoader(false);
       emit("cerrar");
       limpiarDatos();
     }
   } catch (error) {
-    changeBtnLoader();
+    changeBtnLoader(false);
   } finally {
     showLoading(false);
   }

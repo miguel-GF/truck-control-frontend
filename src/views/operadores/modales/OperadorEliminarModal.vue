@@ -40,17 +40,18 @@ const cerrar = () => emit("cerrar");
 const eliminarOperador = async () => {
   try {
     showLoading(true, "Eliminando...");
+    changeBtnLoader();
     const datos = {
       id: props.operadorObj.id,
     };
     const res = await eliminar(datos);
     if (res.exito) {
       mostrarMensaje(res.mensaje);
-      changeBtnLoader();
+      changeBtnLoader(false);
       emit("cerrar");
     }
   } catch (error) {
-    changeBtnLoader();
+    changeBtnLoader(false);
   } finally {
     showLoading(false);
   }

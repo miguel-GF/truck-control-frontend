@@ -20,7 +20,9 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="cerrar()">Cerrar</el-button>
-        <el-button type="primary" @click="confirmar()"> Confirmar </el-button>
+        <el-button type="primary" @click="confirmar()" :loading="btnLoader">
+          Confirmar
+        </el-button>
       </span>
     </template>
   </el-dialog>
@@ -28,6 +30,10 @@
 
 <script setup>
 import { defineProps, defineEmits, ref, watch } from "@/importsVue";
+import { storeToRefs } from "pinia";
+import { useAppStore } from "@/stores/appStore.js";
+const useApp = useAppStore();
+const { btnLoader } = storeToRefs(useApp);
 const props = defineProps({
   mostrar: {
     type: Boolean,
