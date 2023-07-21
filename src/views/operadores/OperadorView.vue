@@ -1,5 +1,6 @@
 <template>
   <TheHeader
+    titulo="Operadores"
     placeholder="Buscar por Clave / Nombre"
     @buscar="filtrar"
     @agregar="abrirAgregar()"

@@ -1,6 +1,6 @@
 <template>
   <TheDrawer
-    titulo="Agregar operador"
+    titulo="Agregar Operador"
     :mostrar="props.mostrar"
     :modelForm="operadorAgregarObj"
     :rulesForm="rulesForm"

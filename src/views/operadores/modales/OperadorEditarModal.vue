@@ -1,6 +1,6 @@
 <template>
   <TheDrawer
-    titulo="Editar operador"
+    titulo="Editar Operador"
     labelAceptar="Editar"
     :mostrar="props.mostrar"
     :modelForm="operadorEditarObj"
