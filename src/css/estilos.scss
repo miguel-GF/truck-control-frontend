@@ -6,6 +6,35 @@ body {
   margin: 0;
 }
 
+// PROPIEDADES FONT EXCLUSIVAS DE ELEMENT PLUS
+.ep-font-size-extra-small {
+  font-size: var(--el-font-size-extra-small);
+}
+
+.ep-font-size-small {
+  font-size: var(--el-font-size-small);
+}
+
+.ep-font-size-base {
+  font-size: var(--el-font-size-base);
+}
+
+.ep-font-size-medium {
+  font-size: var(--el-font-size-medium);
+}
+
+.ep-font-size-large {
+  font-size: var(--el-font-size-large);
+}
+
+.ep-font-size-extra-large {
+  font-size: var(--el-font-size-extra-large);
+}
+
+.tag-status {
+  min-width: 100px;
+}
+
 .header-view {
   border-radius: 0px !important;
   margin-bottom: 20px;
