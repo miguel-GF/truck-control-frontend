@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="0"
+    :default-active="rutaActiva"
     :collapse="!props.isMobile"
     :class="[{ 'no-border': isMobile }]"
   >
@@ -35,19 +35,29 @@
 </template>
 
 <script setup>
-import { ref, shallowRef, defineProps } from "@/importsVue";
-import { HomeFilled, UserFilled } from "@element-plus/icons-vue";
+import { ref, shallowRef, defineProps, computed } from "@/importsVue";
+import { HomeFilled, UserFilled, Money } from "@element-plus/icons-vue";
+import { useRouter } from "vue-router";
 import ItemMenu from "./ItemMenu.vue";
 const userFilledRef = shallowRef(UserFilled);
 const homeFilledRef = shallowRef(HomeFilled);
+const moneyRef = shallowRef(Money);
+const router = useRouter();
 const menuOpciones = ref([
   { titulo: "Home", icono: homeFilledRef, ruta: "/" },
   { titulo: "Operadores", icono: userFilledRef, ruta: "/operadores" },
+  { titulo: "Gastos Directos", icono: moneyRef, ruta: "/gastos/directos" },
 ]);
 const props = defineProps({
   isMobile: {
     type: Boolean,
     default: false,
   },
+});
+const rutaActiva = computed(() => {
+  const index = menuOpciones.value.findIndex(
+    (opc) => opc.ruta == router.currentRoute.value.path
+  );
+  return String(index);
 });
 </script>
