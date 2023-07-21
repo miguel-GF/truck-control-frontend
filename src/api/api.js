@@ -91,7 +91,7 @@ const sendRequestPatch = async (url, method = "PATCH", data = null) => {
 
 export const get = (url, params) => sendRequestGet(url, "GET", params);
 export const post = (url, data) => sendRequest(url, "POST", data);
-export const del = (url, data) => sendRequest(url, "DELETE", data);
+export const del = (url, data) => sendRequestPatch(url, "DELETE", data);
 export const patch = (url, data) => sendRequestPatch(url, "PATCH", data);
 
 const obtenerMensajeRespuesta = ({ status }) => {
