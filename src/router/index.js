@@ -17,6 +17,11 @@ const routes = [
     name: "gastosDirectos",
     component: () => import("../views/gastos/directos/GastoDirectoView.vue"),
   },
+  // Ruta por defecto para cualquier otra ruta que no coincide
+  {
+    path: "/:catchAll(.*)",
+    redirect: "/", // Puedes cambiar esto a la ruta que desees como ruta por defecto
+  },
 ];
 
 const router = createRouter({
