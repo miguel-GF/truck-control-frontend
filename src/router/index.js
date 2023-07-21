@@ -12,6 +12,11 @@ const routes = [
     name: "operadores",
     component: () => import("../views/operadores/OperadorView.vue"),
   },
+  {
+    path: "/gastos/directos",
+    name: "gastosDirectos",
+    component: () => import("../views/gastos/directos/GastoDirectoView.vue"),
+  },
 ];
 
 const router = createRouter({
