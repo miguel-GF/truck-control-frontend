@@ -28,8 +28,16 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 const TheDrawer = defineAsyncComponent(() =>
   import("./components/TheDrawer.vue")
 );
+const TheDialog = defineAsyncComponent(() =>
+  import("./components/TheDialog.vue")
+);
+const TheStatus = defineAsyncComponent(() =>
+  import("./components/TheStatus.vue")
+);
 app.component(TheDrawer);
 app.component(TheHeader);
+app.component(TheDialog);
+app.component(TheStatus);
 app.use(router);
 app.use(pinia);
 app.use(VueTheMask);

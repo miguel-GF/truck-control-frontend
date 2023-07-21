@@ -106,12 +106,12 @@ const formRef = ref(null); // referencia del formulario
 const aceptarClick = () => {
   formRef.value.validate((valid) => {
     if (valid) {
-      console.log("correcto! :D");
       changeBtnLoader();
       emit("aceptar");
-    } else {
-      console.log("no es valiod algo falta");
     }
+    // else {
+    //   console.log("no es valiod algo falta");
+    // }
   });
 };
 </script>
