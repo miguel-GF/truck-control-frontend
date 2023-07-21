@@ -77,7 +77,8 @@ watch(
         tipoAlerta.value = "warning";
         break;
       case "error":
-        tipoAlerta.value = "error";
+      case "danger":
+        tipoAlerta.value = "danger";
         break;
       default:
         tipoAlerta.value = "info";
