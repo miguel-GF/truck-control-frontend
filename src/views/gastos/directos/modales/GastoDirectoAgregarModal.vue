@@ -5,7 +5,6 @@
     :modelForm="gastoDirectoAgregarObj"
     :rulesForm="rulesForm"
     @cerrar="emit('cerrar')"
-    @before-open="dataInicial()"
     @after-close="limpiarDatos()"
     @aceptar="agregarGastoDirecto()"
     class="custom-title"
@@ -40,6 +39,7 @@
         <el-select
           v-model="gastoDirectoAgregarObj.catGastoDirectoId"
           placeholder="Selecciona un tipo"
+          disabled
           clearable
           class="fill-width"
         >
@@ -105,7 +105,6 @@
 
 <script setup>
 import {
-  ref,
   reactive,
   defineProps,
   defineEmits,
@@ -119,22 +118,10 @@ import { useAppStore } from "@/stores/appStore.js";
 const useOperador = useOperadorStore();
 const useGastoDirecto = useGastoDirectoStore();
 const { operadores } = storeToRefs(useOperador);
-const { agregar, listarCatalogo } = useGastoDirecto;
+const { catalogo } = storeToRefs(useGastoDirecto);
+const { agregar } = useGastoDirecto;
 const useApp = useAppStore();
 const { changeBtnLoader } = useApp;
-const { listar } = useOperador;
-const catalogo = ref([]);
-const dataInicial = async () => {
-  try {
-    showLoading(true);
-    listar({ status: [200] });
-    catalogo.value = await listarCatalogo();
-  } catch (error) {
-    //
-  } finally {
-    showLoading(false);
-  }
-};
 const props = defineProps({
   mostrar: {
     type: Boolean,
@@ -146,7 +133,7 @@ const showLoading = inject("$showLoading");
 const mostrarMensaje = inject("$mostrarMensaje");
 const gastoDirectoAgregarObj = reactive({
   operadorId: "",
-  catGastoDirectoId: "",
+  catGastoDirectoId: "1",
   cantidad: 1,
   precio: 0.0,
   total: 0.0,
@@ -198,7 +185,7 @@ const rulesForm = reactive({
 });
 const limpiarDatos = () => {
   gastoDirectoAgregarObj.operadorId = "";
-  gastoDirectoAgregarObj.catGastoDirectoId = "";
+  gastoDirectoAgregarObj.catGastoDirectoId = "1";
   gastoDirectoAgregarObj.cantidad = 1;
   gastoDirectoAgregarObj.precio = 0.0;
   gastoDirectoAgregarObj.total = 0.0;

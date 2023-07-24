@@ -6,6 +6,8 @@ const endPoint = "gastos/directos";
 export const useGastoDirectoStore = defineStore("gastos-directos", () => {
   const gastosDirectos = ref([]);
   const filtradosGastosDirectos = ref([]);
+  const catalogo = ref([]);
+
   const listar = async () => {
     try {
       const { datos } = await get(endPoint);
@@ -32,7 +34,7 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
   const listarCatalogo = async () => {
     try {
       const { datos } = await get(`${endPoint}/catalogo`);
-      return datos;
+      catalogo.value = datos;
     } catch (error) {
       throw new Error(error);
     }
@@ -83,6 +85,7 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
   return {
     gastosDirectos,
     filtradosGastosDirectos,
+    catalogo,
     listar,
     filtrarListar,
     listarCatalogo,

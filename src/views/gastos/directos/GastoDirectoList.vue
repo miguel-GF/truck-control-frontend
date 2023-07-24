@@ -1,6 +1,7 @@
 <script setup>
 import { useGastoDirectoStore } from "@/stores/gastoDirectoStore.js";
 import { useAppStore } from "@/stores/appStore.js";
+import { useOperadorStore } from "@/stores/operadorStore.js";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, inject, ref, defineAsyncComponent } from "@/importsVue";
 const EditarModal = defineAsyncComponent(() =>
@@ -11,9 +12,11 @@ const EliminarModal = defineAsyncComponent(() =>
 );
 const useGasto = useGastoDirectoStore();
 const useApp = useAppStore();
+const useOperador = useOperadorStore();
 const { filtradosGastosDirectos } = storeToRefs(useGasto);
 const { isMobile } = storeToRefs(useApp);
-const { listar } = useGasto;
+const { listar, listarCatalogo } = useGasto;
+const listarOperador = useOperador.listar;
 const mostrarEditar = ref(false);
 const mostrarEliminar = ref(false);
 const gastoObj = ref({});
@@ -96,6 +99,8 @@ const columnas = ref([
 onBeforeMount(async () => {
   try {
     showLoading(true);
+    listarOperador();
+    listarCatalogo();
     await listar();
   } catch (error) {
     //
