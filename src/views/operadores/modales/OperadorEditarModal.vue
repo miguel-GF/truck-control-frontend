@@ -1,6 +1,6 @@
 <template>
   <TheDrawer
-    titulo="Editar Operador"
+    :titulo="`Editar Operador - ${operadorObj.clave || '--'}`"
     labelAceptar="Editar"
     :mostrar="props.mostrar"
     :modelForm="operadorEditarObj"
