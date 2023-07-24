@@ -1,39 +1,104 @@
 <template>
   <TheDrawer
-    titulo="Editar operador"
+    :titulo="`Editar Gasto Directo - ${gastoObj.serie_folio || '--'}`"
     labelAceptar="Editar"
     :mostrar="props.mostrar"
-    :modelForm="operadorEditarObj"
+    :modelForm="gastoDirectoEditarObj"
     :rulesForm="rulesForm"
     @cerrar="emit('cerrar')"
-    @aceptar="editarOperador"
+    @aceptar="editarGastoDirecto()"
     @before-open="datosInicial()"
     class="custom-title"
   >
     <template #body>
-      <el-form-item label="Nombre/s" prop="nombre">
-        <el-input
-          placeholder="Nombre o nombres del operador"
-          v-model="operadorEditarObj.nombre"
+      <el-form-item label="Operador" prop="operadorId">
+        <el-select
+          v-model="gastoDirectoEditarObj.operadorId"
+          placeholder="Selecciona un operador"
+          disabled
           clearable
+          class="fill-width"
+        >
+          <el-option
+            v-for="item in operadores"
+            :key="item.id"
+            :label="item.nombre_operador"
+            :value="item.id"
+          >
+            <span
+              style="
+                float: left;
+                color: var(--el-text-color-secondary);
+                font-size: 13px;
+              "
+              >[{{ item.clave }}]</span
+            >
+            <span style="float: right">{{ item.nombre_operador }}</span>
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Tipo de Gasto" prop="catGastoDirectoId">
+        <el-select
+          v-model="gastoDirectoEditarObj.catGastoDirectoId"
+          placeholder="Selecciona un tipo"
+          disabled
+          clearable
+          class="fill-width"
+        >
+          <el-option
+            v-for="item in catalogo"
+            :key="item.id"
+            :label="item.nombre"
+            :value="item.id"
+          >
+            <span
+              style="
+                float: left;
+                color: var(--el-text-color-secondary);
+                font-size: 13px;
+              "
+              >[{{ item.clave }}]</span
+            >
+            <span style="float: right">{{ item.nombre }}</span>
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Cantidad" prop="cantidad">
+        <el-input
+          placeholder="Cantidad"
+          v-model="gastoDirectoEditarObj.cantidad"
+          clearable
+          ref="inputCantidad"
         />
       </el-form-item>
-      <el-form-item label="Apellidos" prop="apellidos">
+      <el-form-item label="Precio Unitario" prop="precio">
         <el-input
-          placeholder="Apellidos del operador"
-          v-model="operadorEditarObj.apellidos"
+          placeholder="Precio unitario"
+          v-model="gastoDirectoEditarObj.precio"
+          :formatter="
+            (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          "
+          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
           clearable
         ></el-input>
       </el-form-item>
-      <el-form-item label="Teléfono" prop="telefono">
+      <el-form-item label="Total" prop="total">
         <el-input
-          placeholder="10 dígitos"
-          v-model="operadorEditarObj.telefono"
-          v-mask="'(###) ###-##-##'"
-          clearable
-          @input="
-            $validarInputNoObligatorio(rulesForm, operadorEditarObj, 'telefono')
+          placeholder="Total"
+          v-model="calcularTotal"
+          :formatter="
+            (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
           "
+          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
+          disabled
+          clearable
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Fecha de Aplicación" prop="aplicacionFecha">
+        <el-input
+          placeholder="YYYY-MM-DD"
+          v-model="gastoDirectoEditarObj.aplicacionFecha"
+          clearable
         ></el-input>
       </el-form-item>
     </template>
@@ -41,19 +106,30 @@
 </template>
 
 <script setup>
-import { reactive, defineProps, defineEmits, inject } from "@/importsVue";
+import {
+  reactive,
+  defineProps,
+  defineEmits,
+  inject,
+  computed,
+} from "@/importsVue";
+import { storeToRefs } from "pinia";
 import { useOperadorStore } from "@/stores/operadorStore.js";
+import { useGastoDirectoStore } from "@/stores/gastoDirectoStore.js";
 import { useAppStore } from "@/stores/appStore.js";
 const useOperador = useOperadorStore();
+const useGastoDirecto = useGastoDirectoStore();
+const { operadores } = storeToRefs(useOperador);
+const { catalogo } = storeToRefs(useGastoDirecto);
 const useApp = useAppStore();
 const { changeBtnLoader } = useApp;
-const { editar } = useOperador;
+const { editar } = useGastoDirecto;
 const props = defineProps({
   mostrar: {
     type: Boolean,
     default: false,
   },
-  operadorObj: {
+  gastoObj: {
     type: Object,
     default: () => {},
   },
@@ -61,54 +137,85 @@ const props = defineProps({
 const emit = defineEmits(["cerrar"]);
 const showLoading = inject("$showLoading");
 const mostrarMensaje = inject("$mostrarMensaje");
-const operadorEditarObj = reactive({
+const gastoDirectoEditarObj = reactive({
   id: "",
-  nombre: "",
-  apellidos: "",
-  telefono: "",
+  operadorId: "",
+  catGastoDirectoId: "",
+  cantidad: "",
+  precio: "",
+  total: "",
+  aplicacionFecha: "",
 });
 const rulesForm = reactive({
-  nombre: [
+  operadorId: [
     {
       required: true,
-      message: `Nombre es obligatorio`,
+      message: `Operador es obligatorio`,
       trigger: "blur",
     },
   ],
-  apellidos: [
+  catGastoDirectoId: [
     {
       required: true,
-      message: `Apellidos es obligatorio`,
+      message: `Tipo gasto directo es obligatorio`,
       trigger: "blur",
     },
   ],
-  telefono: [
+  cantidad: [
     {
-      required: false,
-      min: 15,
-      max: 15,
-      message: "Deben ser 10 dígitos",
+      required: true,
+      message: `Cantidad es obligatorio`,
+      trigger: "blur",
+    },
+  ],
+  precio: [
+    {
+      required: true,
+      message: `Precio es obligatorio`,
+      trigger: "blur",
+    },
+  ],
+  total: [
+    {
+      required: true,
+      message: `Total es obligatorio`,
+      trigger: "blur",
+    },
+  ],
+  aplicacionFecha: [
+    {
+      required: true,
+      message: `Fecha de aplicación es obligatoria`,
       trigger: "blur",
     },
   ],
 });
 const datosInicial = () => {
-  operadorEditarObj.id = props.operadorObj.id;
-  operadorEditarObj.nombre = props.operadorObj.nombre;
-  operadorEditarObj.apellidos = props.operadorObj.apellidos;
-  operadorEditarObj.telefono = props.operadorObj.telefono;
+  gastoDirectoEditarObj.id = props.gastoObj.id;
+  gastoDirectoEditarObj.operadorId = props.gastoObj.operador_id;
+  gastoDirectoEditarObj.catGastoDirectoId = props.gastoObj.cat_gasto_directo_id;
+  gastoDirectoEditarObj.cantidad = props.gastoObj.cantidad;
+  gastoDirectoEditarObj.precio = props.gastoObj.precio;
+  gastoDirectoEditarObj.aplicacionFecha = props.gastoObj.aplicacion_fecha;
 };
 const limpiarDatos = () => {
-  operadorEditarObj.id = "";
-  operadorEditarObj.nombre = "";
-  operadorEditarObj.apellidos = "";
-  operadorEditarObj.telefono = "";
+  gastoDirectoEditarObj.id = "";
+  gastoDirectoEditarObj.operadorId = "";
+  gastoDirectoEditarObj.catGastoDirectoId = "";
+  gastoDirectoEditarObj.cantidad = 1;
+  gastoDirectoEditarObj.precio = 0.0;
+  gastoDirectoEditarObj.aplicacionFecha = "";
 };
-const editarOperador = async () => {
+const calcularTotal = computed(() => {
+  const total = gastoDirectoEditarObj.cantidad * gastoDirectoEditarObj.precio;
+  gastoDirectoEditarObj.total = total;
+  return total;
+});
+const editarGastoDirecto = async () => {
   try {
     showLoading(true, "Editando...");
     changeBtnLoader();
-    const res = await editar(operadorEditarObj);
+    const res = await editar(gastoDirectoEditarObj);
     if (res.exito) {
       mostrarMensaje(res.mensaje);
       changeBtnLoader(false);

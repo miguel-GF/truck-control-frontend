@@ -1,15 +1,22 @@
 <template>
   <TheDialog
     :mostrar="mostrar"
-    titulo="Eliminar Operador"
+    titulo="Eliminar Gasto Directo"
     tipo="warning"
     @cerrar="cerrar()"
-    @confirmar="eliminarOperador()"
+    @confirmar="eliminarGastoDirecto()"
   >
     <template #default>
       <div>
-        Eliminará al operador
-        {{ `${operadorObj.clave} - ${operadorObj.nombre_operador}` }}
+        Eliminará el gasto directo
+        {{
+          `${gastoObj.serie_folio || "--"} - ${
+            gastoObj.nombre_gasto_directo || "--"
+          }`
+        }}
+      </div>
+      <div>
+        {{ `Asociado al operador ${gastoObj.nombre_operador || "--"}` }}
       </div>
     </template>
   </TheDialog>
@@ -17,18 +24,18 @@
 
 <script setup>
 import { defineProps, defineEmits, inject } from "@/importsVue";
-import { useOperadorStore } from "@/stores/operadorStore.js";
+import { useGastoDirectoStore } from "@/stores/gastoDirectoStore";
 import { useAppStore } from "@/stores/appStore.js";
-const useOperador = useOperadorStore();
+const useGastoDirecto = useGastoDirectoStore();
 const useApp = useAppStore();
 const { changeBtnLoader } = useApp;
-const { eliminar } = useOperador;
+const { eliminar } = useGastoDirecto;
 const props = defineProps({
   mostrar: {
     type: Boolean,
     default: false,
   },
-  operadorObj: {
+  gastoObj: {
     type: Object,
     default: () => {},
   },
@@ -37,12 +44,12 @@ const emit = defineEmits(["cerrar", "confirmar"]);
 const showLoading = inject("$showLoading");
 const mostrarMensaje = inject("$mostrarMensaje");
 const cerrar = () => emit("cerrar");
-const eliminarOperador = async () => {
+const eliminarGastoDirecto = async () => {
   try {
     showLoading(true, "Eliminando...");
     changeBtnLoader();
     const datos = {
-      id: props.operadorObj.id,
+      id: props.gastoObj.id,
     };
     const res = await eliminar(datos);
     if (res.exito) {
