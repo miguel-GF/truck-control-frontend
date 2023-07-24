@@ -10,7 +10,7 @@ const obtenerTipo = (tipo) => {
       return "warning";
     case "error":
     case "danger":
-      return "danger";
+      return "error";
     default:
       return "info";
   }
