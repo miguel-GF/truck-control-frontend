@@ -5,9 +5,9 @@ import { get, post, patch, del } from "../api/api";
 export const useOperadorStore = defineStore("operadores", () => {
   const operadores = ref([]);
   const filtradosOperadores = ref([]);
-  const listar = async () => {
+  const listar = async (params = null) => {
     try {
-      const { datos } = await get("operadores");
+      const { datos } = await get("operadores", params);
       operadores.value = datos;
       filtradosOperadores.value = datos;
     } catch (error) {
