@@ -6,6 +6,11 @@ body {
   margin: 0;
 }
 
+.fill-width {
+  width: 100%;
+  width: -webkit-fill-available;
+}
+
 // PROPIEDADES FONT EXCLUSIVAS DE ELEMENT PLUS
 .ep-font-size-extra-small {
   font-size: var(--el-font-size-extra-small);
