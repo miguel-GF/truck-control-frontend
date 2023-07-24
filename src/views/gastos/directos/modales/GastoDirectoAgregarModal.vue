@@ -5,11 +5,62 @@
     :modelForm="gastoDirectoAgregarObj"
     :rulesForm="rulesForm"
     @cerrar="emit('cerrar')"
+    @before-open="dataInicial()"
     @after-close="limpiarDatos()"
-    @aceptar="agregarOperador"
+    @aceptar="agregarGastoDirecto()"
     class="custom-title"
   >
     <template #body>
+      <el-form-item label="Operador" prop="operadorId">
+        <el-select
+          v-model="gastoDirectoAgregarObj.operadorId"
+          placeholder="Selecciona un operador"
+          clearable
+          class="fill-width"
+        >
+          <el-option
+            v-for="item in operadores"
+            :key="item.id"
+            :label="item.nombre_operador"
+            :value="item.id"
+          >
+            <span
+              style="
+                float: left;
+                color: var(--el-text-color-secondary);
+                font-size: 13px;
+              "
+              >[{{ item.clave }}]</span
+            >
+            <span style="float: right">{{ item.nombre_operador }}</span>
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Tipo de Gasto" prop="catGastoDirectoId">
+        <el-select
+          v-model="gastoDirectoAgregarObj.catGastoDirectoId"
+          placeholder="Selecciona un tipo"
+          clearable
+          class="fill-width"
+        >
+          <el-option
+            v-for="item in catalogo"
+            :key="item.id"
+            :label="item.nombre"
+            :value="item.id"
+          >
+            <span
+              style="
+                float: left;
+                color: var(--el-text-color-secondary);
+                font-size: 13px;
+              "
+              >[{{ item.clave }}]</span
+            >
+            <span style="float: right">{{ item.nombre }}</span>
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="Cantidad" prop="cantidad">
         <el-input
           placeholder="Cantidad"
@@ -22,6 +73,10 @@
         <el-input
           placeholder="Precio unitario"
           v-model="gastoDirectoAgregarObj.precio"
+          :formatter="
+            (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          "
+          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
           clearable
         ></el-input>
       </el-form-item>
@@ -29,6 +84,10 @@
         <el-input
           placeholder="Total"
           v-model="calcularTotal"
+          :formatter="
+            (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          "
+          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
           disabled
           clearable
         ></el-input>
@@ -46,18 +105,36 @@
 
 <script setup>
 import {
+  ref,
   reactive,
   defineProps,
   defineEmits,
   inject,
   computed,
 } from "@/importsVue";
+import { storeToRefs } from "pinia";
 import { useOperadorStore } from "@/stores/operadorStore.js";
+import { useGastoDirectoStore } from "@/stores/gastoDirectoStore.js";
 import { useAppStore } from "@/stores/appStore.js";
 const useOperador = useOperadorStore();
+const useGastoDirecto = useGastoDirectoStore();
+const { operadores } = storeToRefs(useOperador);
+const { agregar, listarCatalogo } = useGastoDirecto;
 const useApp = useAppStore();
 const { changeBtnLoader } = useApp;
-const { agregar } = useOperador;
+const { listar } = useOperador;
+const catalogo = ref([]);
+const dataInicial = async () => {
+  try {
+    showLoading(true);
+    listar({ status: [200] });
+    catalogo.value = await listarCatalogo();
+  } catch (error) {
+    //
+  } finally {
+    showLoading(false);
+  }
+};
 const props = defineProps({
   mostrar: {
     type: Boolean,
@@ -114,7 +191,7 @@ const rulesForm = reactive({
   aplicacionFecha: [
     {
       required: true,
-      message: `Fecha de Aplicación es obligatoria`,
+      message: `Fecha de aplicación es obligatoria`,
       trigger: "blur",
     },
   ],
@@ -132,7 +209,7 @@ const calcularTotal = computed(() => {
   gastoDirectoAgregarObj.total = total;
   return total;
 });
-const agregarOperador = async () => {
+const agregarGastoDirecto = async () => {
   try {
     showLoading(true, "Agregando...");
     changeBtnLoader();
