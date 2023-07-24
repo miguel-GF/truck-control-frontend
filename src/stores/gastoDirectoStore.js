@@ -29,6 +29,14 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
           .toLowerCase()
           .includes(busqueda.value.toLowerCase())
     ));
+  const listarCatalogo = async () => {
+    try {
+      const { datos } = await get(`${endPoint}/catalogo`);
+      return datos;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
   const agregar = async (datos) => {
     try {
       const respuesta = await post(endPoint, datos);
@@ -77,6 +85,7 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
     filtradosGastosDirectos,
     listar,
     filtrarListar,
+    listarCatalogo,
     agregar,
     editar,
     eliminar,
