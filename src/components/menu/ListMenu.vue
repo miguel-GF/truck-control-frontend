@@ -36,17 +36,23 @@
 
 <script setup>
 import { ref, shallowRef, defineProps, computed } from "@/importsVue";
-import { HomeFilled, UserFilled, Money } from "@element-plus/icons-vue";
+import { HomeFilled, UserFilled, Money, Wallet } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import ItemMenu from "./ItemMenu.vue";
 const userFilledRef = shallowRef(UserFilled);
 const homeFilledRef = shallowRef(HomeFilled);
+const walletRef = shallowRef(Wallet);
 const moneyRef = shallowRef(Money);
 const router = useRouter();
 const menuOpciones = ref([
   { titulo: "Home", icono: homeFilledRef, ruta: "/" },
   { titulo: "Operadores", icono: userFilledRef, ruta: "/operadores" },
   { titulo: "Gastos Directos", icono: moneyRef, ruta: "/gastos/directos" },
+  {
+    titulo: "Nóminas Operadores",
+    icono: walletRef,
+    ruta: "/nominas/operadores",
+  },
 ]);
 const props = defineProps({
   isMobile: {

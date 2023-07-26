@@ -17,6 +17,12 @@ const routes = [
     name: "gastosDirectos",
     component: () => import("../views/gastos/directos/GastoDirectoView.vue"),
   },
+  {
+    path: "/nominas/operadores",
+    name: "nominasOperadores",
+    component: () =>
+      import("../views/nominas/operadores/NominaOperadorView.vue"),
+  },
   // Ruta por defecto para cualquier otra ruta que no coincide
   {
     path: "/:catchAll(.*)",
