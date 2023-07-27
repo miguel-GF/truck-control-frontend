@@ -13,14 +13,17 @@
         <el-input
           placeholder="Nombre o nombres del operador"
           v-model="operadorAgregarObj.nombre"
+          maxlength="150"
+          show-word-limit
           clearable
-          ref="inputNombre"
         />
       </el-form-item>
       <el-form-item label="Apellidos" prop="apellidos">
         <el-input
           placeholder="Apellidos del operador"
           v-model="operadorAgregarObj.apellidos"
+          maxlength="150"
+          show-word-limit
           clearable
         ></el-input>
       </el-form-item>
@@ -29,6 +32,7 @@
           placeholder="10 dígitos"
           v-model="operadorAgregarObj.telefono"
           v-mask="'(###) ###-##-##'"
+          maxlength="15"
           clearable
           @input="
             $validarInputNoObligatorio(

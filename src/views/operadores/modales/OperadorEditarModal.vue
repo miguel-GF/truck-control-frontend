@@ -15,6 +15,8 @@
         <el-input
           placeholder="Nombre o nombres del operador"
           v-model="operadorEditarObj.nombre"
+          maxlength="150"
+          show-word-limit
           clearable
         />
       </el-form-item>
@@ -22,6 +24,8 @@
         <el-input
           placeholder="Apellidos del operador"
           v-model="operadorEditarObj.apellidos"
+          maxlength="150"
+          show-word-limit
           clearable
         ></el-input>
       </el-form-item>
@@ -30,6 +34,7 @@
           placeholder="10 dígitos"
           v-model="operadorEditarObj.telefono"
           v-mask="'(###) ###-##-##'"
+          maxlength="15"
           clearable
           @input="
             $validarInputNoObligatorio(rulesForm, operadorEditarObj, 'telefono')
