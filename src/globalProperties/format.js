@@ -1,10 +1,16 @@
-//Método para formatear números y moneda
-export const formatearNumero = (value, tipo = "number") => {
-  if (!value) return Intl.NumberFormat("es-MX").format(0);
-  return value && tipo == "number"
-    ? Intl.NumberFormat("es-MX").format(value)
+//Método para formatear números, moneda, porcentaje
+// tipo = number / currency / percent
+export const formatearNumero = (
+  valor,
+  tipo = "number",
+  multiplicarPorcentaje = true
+) => {
+  if (!valor) return Intl.NumberFormat("es-MX").format(0);
+  const divisor = tipo == "percent" && !multiplicarPorcentaje ? 100 : 1;
+  return valor && tipo == "number"
+    ? Intl.NumberFormat("es-MX").format(valor)
     : Intl.NumberFormat("es-MX", {
-        style: "currency",
+        style: tipo,
         currency: "MXN",
-      }).format(value);
+      }).format(valor / divisor);
 };
