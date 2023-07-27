@@ -50,8 +50,8 @@ const emit = defineEmits(["cerrar"]);
 const showLoading = inject("$showLoading");
 const mostrarMensaje = inject("$mostrarMensaje");
 const today = dayjs();
-const lunes = today.startOf("isoWeek").format("YYYY-MM-DD");
-const sabado = today.startOf("isoWeek").add(5, "day").format("YYYY-MM-DD");
+const lunes = today.day(1).format("YYYY-MM-DD");
+const sabado = today.day(6).format("YYYY-MM-DD");
 const operadorAgregarObj = reactive({
   inicioFecha: lunes,
   finFecha: sabado,
