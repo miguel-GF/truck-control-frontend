@@ -63,25 +63,31 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Cantidad" prop="cantidad">
-        <el-input
-          placeholder="Cantidad"
-          v-model="gastoDirectoEditarObj.cantidad"
-          clearable
-          ref="inputCantidad"
-        />
-      </el-form-item>
-      <el-form-item label="Precio Unitario" prop="precio">
-        <el-input
-          placeholder="Precio unitario"
-          v-model="gastoDirectoEditarObj.precio"
-          :formatter="
-            (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-          "
-          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
-          clearable
-        ></el-input>
-      </el-form-item>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="Cantidad" prop="cantidad">
+            <el-input
+              placeholder="Cantidad"
+              v-model.number="gastoDirectoEditarObj.cantidad"
+              clearable
+              ref="inputCantidad"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Precio Unitario" prop="precio">
+            <el-input
+              placeholder="Precio unitario"
+              v-model="gastoDirectoEditarObj.precio"
+              :formatter="
+                (value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              "
+              :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
+              clearable
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item label="Total" prop="total">
         <el-input
           placeholder="Total"
@@ -98,6 +104,15 @@
         <el-input
           placeholder="YYYY-MM-DD"
           v-model="gastoDirectoEditarObj.aplicacionFecha"
+          clearable
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Comentario" prop="comentario">
+        <el-input
+          placeholder="Puede agregar un comentario de referencia"
+          v-model="gastoDirectoEditarObj.comentario"
+          :autosize="{ minRows: 2, maxRows: 4 }"
+          type="textarea"
           clearable
         ></el-input>
       </el-form-item>
@@ -145,6 +160,7 @@ const gastoDirectoEditarObj = reactive({
   precio: "",
   total: "",
   aplicacionFecha: "",
+  comentario: "",
 });
 const rulesForm = reactive({
   operadorId: [
@@ -197,6 +213,7 @@ const datosInicial = () => {
   gastoDirectoEditarObj.cantidad = props.gastoObj.cantidad;
   gastoDirectoEditarObj.precio = props.gastoObj.precio;
   gastoDirectoEditarObj.aplicacionFecha = props.gastoObj.aplicacion_fecha;
+  gastoDirectoEditarObj.comentario = props.gastoObj.comentario;
 };
 const limpiarDatos = () => {
   gastoDirectoEditarObj.id = "";
@@ -205,6 +222,7 @@ const limpiarDatos = () => {
   gastoDirectoEditarObj.cantidad = 1;
   gastoDirectoEditarObj.precio = 0.0;
   gastoDirectoEditarObj.aplicacionFecha = "";
+  gastoDirectoEditarObj.comentario = "";
 };
 const calcularTotal = computed(() => {
   const total = gastoDirectoEditarObj.cantidad * gastoDirectoEditarObj.precio;

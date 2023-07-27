@@ -60,6 +60,7 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
         gastosDirectos.value[index].precio = datos.precio;
         gastosDirectos.value[index].total = datos.total;
         gastosDirectos.value[index].aplicacionFecha = datos.aplicacion_fecha;
+        gastosDirectos.value[index].comentario = datos.comentario;
       }
       return respuesta;
     } catch (error) {
