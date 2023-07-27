@@ -21,6 +21,7 @@ const mostrarEditar = ref(false);
 const mostrarEliminar = ref(false);
 const gastoObj = ref({});
 const showLoading = inject("$showLoading");
+const formatearNumero = inject("$formatearNumero");
 const columnas = ref([
   {
     id: "folio",
@@ -52,7 +53,7 @@ const columnas = ref([
     prop: "cantidad",
     label: "Cantidad",
     sortable: true,
-    formatter: (row) => row.cantidad ?? "--",
+    formatter: (row) => formatearNumero(row.cantidad),
     minWidth: "100px",
     align: "center",
   },
@@ -61,7 +62,7 @@ const columnas = ref([
     prop: "precio",
     label: "Precio",
     sortable: true,
-    formatter: (row) => row.precio ?? "--",
+    formatter: (row) => formatearNumero(row.precio, "currency"),
     minWidth: "100px",
     align: "right",
   },
@@ -70,7 +71,7 @@ const columnas = ref([
     prop: "total",
     label: "Total",
     sortable: true,
-    formatter: (row) => row.total ?? "--",
+    formatter: (row) => formatearNumero(row.total, "currency"),
     minWidth: "100px",
     align: "right",
   },

@@ -94,6 +94,7 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
       :formatter="columna.formatter ?? (() => {})"
       :fixed="columna.fixed ?? false"
       :min-width="columna.minWidth ?? null"
+      :align="columna.align ?? 'left'"
     >
       <!-- <template v-if="columna.id == 'opciones'" #header>
         <el-input

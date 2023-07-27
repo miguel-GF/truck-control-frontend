@@ -14,6 +14,7 @@ const { listar } = useOperador;
 const mostrarEliminar = ref(false);
 const operadorObj = ref({});
 const showLoading = inject("$showLoading");
+const formatearNumero = inject("$formatearNumero");
 const columnas = ref([
   {
     id: "folio",
@@ -23,6 +24,33 @@ const columnas = ref([
     formatter: (row) => row.serie_folio ?? "--",
     minWidth: "100px",
     align: "center",
+  },
+  {
+    id: "total",
+    prop: "total",
+    label: "Total",
+    sortable: true,
+    formatter: (row) => formatearNumero(row.total, "currency"),
+    minWidth: "100px",
+    align: "right",
+  },
+  {
+    id: "totalGastos",
+    prop: "total_gastos",
+    label: "Total Gastos",
+    sortable: true,
+    formatter: (row) => formatearNumero(row.total_gastos, "currency"),
+    minWidth: "100px",
+    align: "right",
+  },
+  {
+    id: "totalGastos",
+    prop: "total_deducciones",
+    label: "Total Deducciones",
+    sortable: true,
+    formatter: (row) => formatearNumero(row.total_deducciones, "currency"),
+    minWidth: "100px",
+    align: "right",
   },
   {
     id: "inicioFecha",
@@ -88,6 +116,7 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
       :formatter="columna.formatter ?? (() => {})"
       :fixed="columna.fixed ?? false"
       :min-width="columna.minWidth ?? null"
+      :align="columna.align ?? 'left'"
     >
       <template v-if="columna.id == 'status'" #default="scope">
         <TheStatus
