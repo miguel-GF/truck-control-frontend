@@ -13,6 +13,7 @@ import { get, post, del, patch } from "./api/api";
 import { showLoading } from "./globalProperties/loader";
 import { mostrarMensaje } from "./globalProperties/message";
 import { validarInputNoObligatorio } from "./globalProperties/input";
+import { formatearNumero } from "./globalProperties/format";
 // Componentes
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import TheHeader from "./components/TheHeader.vue";
@@ -44,6 +45,7 @@ app.use(VueTheMask);
 // Servicios globales
 app.provide("$showLoading", showLoading);
 app.provide("$mostrarMensaje", mostrarMensaje);
+app.provide("$formatearNumero", formatearNumero);
 // Propiedades globales
 app.config.globalProperties.$http = {
   get,
@@ -55,5 +57,6 @@ app.config.globalProperties.$showLoading = showLoading;
 app.config.globalProperties.$mostrarMensaje = mostrarMensaje;
 app.config.globalProperties.$validarInputNoObligatorio =
   validarInputNoObligatorio;
+app.config.globalProperties.$formatearNumero = formatearNumero;
 
 app.mount("#app");
