@@ -17,6 +17,8 @@ import { formatearNumero } from "./globalProperties/format";
 // Componentes
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import TheHeader from "./components/TheHeader.vue";
+import ContainerTabsLayout from "./components/layouts/ContainerTabsLayout.vue";
+import TheRowInfo from "./components/TheRowInfo.vue";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -35,10 +37,15 @@ const TheDialog = defineAsyncComponent(() =>
 const TheStatus = defineAsyncComponent(() =>
   import("./components/TheStatus.vue")
 );
+// const ContainerTabsLayout = defineAsyncComponent(() =>
+//   import("./components/layouts/ContainerTabsLayout.vue")
+// );
 app.component(TheDrawer);
 app.component(TheHeader);
 app.component(TheDialog);
 app.component(TheStatus);
+app.component(ContainerTabsLayout);
+app.component(TheRowInfo);
 app.use(router);
 app.use(pinia);
 app.use(VueTheMask);
