@@ -6,6 +6,7 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
   const endPoint = "nominas/operadores";
   const nominasOperadores = ref([]);
   const filtradosNominasOperadores = ref([]);
+  const detalleNomina = ref({});
   const listar = async (params = null) => {
     try {
       const { datos } = await get(endPoint, params);
@@ -23,6 +24,15 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
           .toLowerCase()
           .includes(busqueda.value.toLowerCase())
     ));
+  const obtenerDetalle = async (id, params = null) => {
+    try {
+      const { datos } = await get(`${endPoint}/${id}`, params);
+      detalleNomina.value = datos;
+      return datos;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
   const agregar = async (datos) => {
     try {
       const respuesta = await post(endPoint, datos);
@@ -66,13 +76,27 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
       throw new Error(error);
     }
   };
+  const recalcular = async (datosEditar) => {
+    try {
+      const id = datosEditar.id;
+      await patch(`${endPoint}/recalcular`, datosEditar);
+      const res = await get(`${endPoint}/${id}`);
+      detalleNomina.value = res.datos;
+      return res;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
   return {
     nominasOperadores,
     filtradosNominasOperadores,
+    detalleNomina,
     listar,
     filtrarListar,
+    obtenerDetalle,
     agregar,
     editar,
     eliminar,
+    recalcular,
   };
 });
