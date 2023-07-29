@@ -11,6 +11,10 @@ body {
   width: -webkit-fill-available;
 }
 
+.fw-600 {
+  font-weight: 600;
+}
+
 // PROPIEDADES FONT EXCLUSIVAS DE ELEMENT PLUS
 .ep-font-size-extra-small {
   font-size: var(--el-font-size-extra-small);
@@ -42,7 +46,6 @@ body {
 
 .header-view {
   border-radius: 0px !important;
-  margin-bottom: 20px;
   .el-card__body {
     padding-block: 10px;
   }
