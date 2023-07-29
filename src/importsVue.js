@@ -6,13 +6,16 @@ import {
   onMounted,
   onBeforeMount,
   onBeforeUnmount,
+  onUnmounted,
   watch,
   computed,
   defineProps,
   defineEmits,
   defineAsyncComponent,
+  defineComponent,
   inject,
   toRef,
+  nextTick,
 } from "vue";
 
 export {
@@ -23,11 +26,14 @@ export {
   onMounted,
   onBeforeMount,
   onBeforeUnmount,
+  onUnmounted,
   watch,
   computed,
   defineProps,
   defineEmits,
   defineAsyncComponent,
+  defineComponent,
   inject,
   toRef,
+  nextTick,
 };
