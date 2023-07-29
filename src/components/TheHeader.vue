@@ -7,19 +7,35 @@
             <el-row class="title"> {{ props.titulo }} </el-row>
             <el-row>
               <el-col :span="8">
-                <el-input
-                  v-model="busqueda"
-                  @input="buscar()"
-                  size="small"
-                  :placeholder="props.placeholder"
-                  clearable
-                />
+                <template v-if="props.tipoVisualizacion == 'busqueda'">
+                  <el-input
+                    v-model="busqueda"
+                    @input="buscar()"
+                    size="small"
+                    :placeholder="props.placeholder"
+                    clearable
+                  />
+                </template>
+                <template v-else-if="props.tipoVisualizacion == 'breadcrumbs'">
+                  <el-breadcrumb separator="/">
+                    <template
+                      v-for="(bc, index) in breadcrumbsHeader"
+                      :key="index"
+                    >
+                      <el-breadcrumb-item :to="{ path: bc.path ?? '' }">{{
+                        bc.label
+                      }}</el-breadcrumb-item>
+                    </template>
+                  </el-breadcrumb>
+                </template>
               </el-col>
               <el-col :span="8"></el-col>
             </el-row>
           </el-col>
           <el-col :span="8" align="end">
-            <el-button @click="agregar()" type="primary">Agregar</el-button>
+            <slot name="acciones">
+              <el-button @click="agregar()" type="primary">Agregar</el-button>
+            </slot>
           </el-col>
         </el-row>
       </el-col>
@@ -39,7 +55,18 @@ const props = defineProps({
     type: String,
     default: "Buscar",
   },
+  tipoVisualizacion: {
+    type: String,
+    default: "busqueda",
+  },
+  breadcrumbs: {
+    type: Array,
+    default: () => [],
+  },
 });
+const breadcrumbsHeader = [...props.breadcrumbs];
+const homeBreadcrumb = { path: "/", label: "Home" };
+breadcrumbsHeader.unshift(homeBreadcrumb);
 const emit = defineEmits(["buscar", "agregar"]);
 const buscar = () => emit("buscar", busqueda);
 const agregar = () => emit("agregar");
