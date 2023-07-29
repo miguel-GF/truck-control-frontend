@@ -44,7 +44,7 @@ const columnas = ref([
     align: "right",
   },
   {
-    id: "totalGastos",
+    id: "totalDeducciones",
     prop: "total_deducciones",
     label: "Total Deducciones",
     sortable: true,
@@ -118,7 +118,14 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
       :min-width="columna.minWidth ?? null"
       :align="columna.align ?? 'left'"
     >
-      <template v-if="columna.id == 'status'" #default="scope">
+      <template v-if="columna.id == 'folio'" #default="scope">
+        <router-link
+          :to="{ name: 'nominaOperadorDetalle', params: { id: scope.row.id } }"
+        >
+          {{ scope.row.serie_folio || "--" }}
+        </router-link>
+      </template>
+      <template v-else-if="columna.id == 'status'" #default="scope">
         <TheStatus
           :status="scope.row.status"
           :statusNombre="scope.row.status_nombre"
