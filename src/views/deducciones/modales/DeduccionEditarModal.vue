@@ -41,7 +41,6 @@
         <el-select
           v-model="deduccionEditarObj.catDeduccionId"
           placeholder="Selecciona un tipo"
-          disabled
           clearable
           class="fill-width"
         >

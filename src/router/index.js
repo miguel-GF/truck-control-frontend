@@ -29,6 +29,11 @@ const routes = [
     component: () =>
       import("../views/nominas/operadores/NominaOperadorDetalleView.vue"),
   },
+  {
+    path: "/deducciones",
+    name: "deducciones",
+    component: () => import("../views/deducciones/DeduccionView.vue"),
+  },
   // Ruta por defecto para cualquier otra ruta que no coincide
   {
     path: "/:catchAll(.*)",

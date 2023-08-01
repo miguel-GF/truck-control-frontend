@@ -35,11 +35,10 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Tipo de Gasto" prop="catDeduccionId">
+      <el-form-item label="Tipo de Deducción" prop="catDeduccionId">
         <el-select
           v-model="deduccionAgregarObj.catDeduccionId"
           placeholder="Selecciona un tipo"
-          disabled
           clearable
           class="fill-width"
         >
@@ -148,7 +147,7 @@ const showLoading = inject("$showLoading");
 const mostrarMensaje = inject("$mostrarMensaje");
 const deduccionAgregarObj = reactive({
   operadorId: "",
-  catDeduccionId: 1,
+  catDeduccionId: "",
   cantidad: 1,
   precio: 0.0,
   total: 0.0,
@@ -201,7 +200,7 @@ const rulesForm = reactive({
 });
 const limpiarDatos = () => {
   deduccionAgregarObj.operadorId = "";
-  deduccionAgregarObj.catDeduccionId = 1;
+  deduccionAgregarObj.catDeduccionId = "";
   deduccionAgregarObj.cantidad = 1;
   deduccionAgregarObj.precio = 0.0;
   deduccionAgregarObj.total = 0.0;
