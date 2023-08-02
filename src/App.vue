@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
 // }
 
 .el-footer {
-  background-color: $background;
+  background-color: $background-primary;
 }
 
 .el-header {
