@@ -50,7 +50,8 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
   };
   const editar = async (datosEditar) => {
     try {
-      const respuesta = await patch(endPoint, datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await patch(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = gastosDirectos.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)
@@ -69,7 +70,8 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
   };
   const eliminar = async (datosEditar) => {
     try {
-      const respuesta = await del(endPoint, datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await del(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = gastosDirectos.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)

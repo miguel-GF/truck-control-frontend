@@ -44,7 +44,8 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
   };
   const editar = async (datosEditar) => {
     try {
-      const respuesta = await patch(endPoint, datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await patch(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = nominasOperadores.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)
@@ -62,7 +63,8 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
   };
   const eliminar = async (datosEditar) => {
     try {
-      const respuesta = await del(endPoint, datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await del(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = nominasOperadores.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)

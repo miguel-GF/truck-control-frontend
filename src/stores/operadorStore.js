@@ -2,12 +2,13 @@ import { defineStore } from "pinia";
 import { ref } from "@/importsVue";
 import { get, post, patch, del } from "../api/api";
 
+const endPoint = "operadores";
 export const useOperadorStore = defineStore("operadores", () => {
   const operadores = ref([]);
   const filtradosOperadores = ref([]);
   const listar = async (params = null) => {
     try {
-      const { datos } = await get("operadores", params);
+      const { datos } = await get(endPoint, params);
       operadores.value = datos;
       filtradosOperadores.value = datos;
     } catch (error) {
@@ -25,7 +26,7 @@ export const useOperadorStore = defineStore("operadores", () => {
     ));
   const agregar = async (datos) => {
     try {
-      const respuesta = await post("operadores", datos);
+      const respuesta = await post(endPoint, datos);
       operadores.value.push(respuesta.datos);
       return respuesta;
     } catch (error) {
@@ -34,7 +35,8 @@ export const useOperadorStore = defineStore("operadores", () => {
   };
   const editar = async (datosEditar) => {
     try {
-      const respuesta = await patch("operadores", datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await patch(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = operadores.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)
@@ -52,7 +54,8 @@ export const useOperadorStore = defineStore("operadores", () => {
   };
   const eliminar = async (datosEditar) => {
     try {
-      const respuesta = await del("operadores", datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await del(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = operadores.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)

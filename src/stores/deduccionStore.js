@@ -70,7 +70,8 @@ export const useDeduccionStore = defineStore("deducciones", () => {
   };
   const eliminar = async (datosEditar) => {
     try {
-      const respuesta = await del(endPoint, datosEditar);
+      const id = datosEditar.id;
+      const respuesta = await del(`${endPoint}/${id}`, datosEditar);
       const { datos } = respuesta;
       const index = deducciones.value.findIndex(
         (o) => Number(o.id) === Number(datos.id)

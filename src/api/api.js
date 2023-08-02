@@ -58,41 +58,10 @@ const sendRequestGet = async (url, method = "GET", params = null) => {
   }
 };
 
-const sendRequestPatch = async (url, method = "PATCH", data = null) => {
-  const config = {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const id = data.id;
-  delete data.id;
-
-  if (data) {
-    config.body = JSON.stringify(data);
-  }
-
-  try {
-    const response = await fetch(`${BASE_URL}/${url}/${id}`, config);
-    const res = await response.json();
-    if (!res.exito) {
-      throw new Error(res.mensaje);
-    } else if (!response.ok) {
-      const mensaje = obtenerMensajeRespuesta(response);
-      throw new Error(mensaje);
-    }
-
-    return res;
-  } catch (error) {
-    mostrarMensaje(error.message, "error");
-    throw new Error(error.message);
-  }
-};
-
 export const get = (url, params) => sendRequestGet(url, "GET", params);
 export const post = (url, data) => sendRequest(url, "POST", data);
-export const del = (url, data) => sendRequestPatch(url, "DELETE", data);
-export const patch = (url, data) => sendRequestPatch(url, "PATCH", data);
+export const del = (url, data) => sendRequest(url, "DELETE", data);
+export const patch = (url, data) => sendRequest(url, "PATCH", data);
 
 const obtenerMensajeRespuesta = ({ status }) => {
   switch (Number(status)) {
