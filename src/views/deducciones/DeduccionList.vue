@@ -148,9 +148,12 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
         <el-row justify="space-around" v-if="Number(scope.row.status) == 200">
           <div>
             <el-tooltip content="Editar" placement="left-start">
-              <el-icon class="cursor-pointer" @click="abrirEditar(scope.row)"
-                ><Edit
-              /></el-icon>
+              <el-icon
+                class="cursor-pointer"
+                @click="abrirEditar(scope.row)"
+                size="16"
+                ><i class="las la-edit"></i
+              ></el-icon>
             </el-tooltip>
           </div>
           <div>
@@ -159,8 +162,9 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
                 color="primary"
                 class="cursor-pointer primary"
                 @click="abrirEliminar(scope.row)"
-                ><Delete
-              /></el-icon>
+                size="16"
+                ><i class="las la-trash-alt"></i
+              ></el-icon>
             </el-tooltip>
           </div>
         </el-row>

@@ -15,7 +15,7 @@ import { mostrarMensaje } from "./globalProperties/message";
 import { validarInputNoObligatorio } from "./globalProperties/input";
 import { formatearNumero } from "./globalProperties/format";
 // Componentes
-import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+// import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import TheHeader from "./components/TheHeader.vue";
 import ContainerTabsLayout from "./components/layouts/ContainerTabsLayout.vue";
 import TheRowInfo from "./components/TheRowInfo.vue";
@@ -25,9 +25,9 @@ const pinia = createPinia();
 app.use(ElementPlus, {
   locale: es,
 });
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component);
-}
+// for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+//   app.component(key, component);
+// }
 const TheDrawer = defineAsyncComponent(() =>
   import("./components/TheDrawer.vue")
 );

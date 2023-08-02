@@ -139,8 +139,9 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
                 color="primary"
                 class="cursor-pointer primary"
                 @click="abrirEliminar(scope.row)"
-                ><Delete
-              /></el-icon>
+                size="16"
+                ><i class="las la-trash-alt"></i
+              ></el-icon>
             </el-tooltip>
           </div>
         </el-row>
