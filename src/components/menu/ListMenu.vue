@@ -1,6 +1,7 @@
 <template>
   <el-menu
     :default-active="rutaActiva"
+    active-text-color="#ffffff"
     :collapse="!props.isMobile"
     :class="[{ 'no-border': isMobile }]"
   >
@@ -26,6 +27,7 @@
       <ItemMenu
         :titulo="opc.titulo"
         :index="String(i)"
+        :rutaActiva="rutaActiva == String(i)"
         :icono="opc.icono"
         :ruta="opc.ruta"
         :isMobile="props.isMobile"
@@ -35,23 +37,34 @@
 </template>
 
 <script setup>
-import { ref, shallowRef, defineProps, computed } from "@/importsVue";
-import { HomeFilled, UserFilled, Money, Wallet } from "@element-plus/icons-vue";
+import { ref, defineProps, computed } from "@/importsVue";
+// import { UserFilled } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import ItemMenu from "./ItemMenu.vue";
-const userFilledRef = shallowRef(UserFilled);
-const homeFilledRef = shallowRef(HomeFilled);
-const walletRef = shallowRef(Wallet);
-const moneyRef = shallowRef(Money);
+// const userFilledRef = shallowRef(UserFilled);
+// const homeFilledRef = shallowRef(HomeFilled);
 const router = useRouter();
 const menuOpciones = ref([
-  { titulo: "Home", icono: homeFilledRef, ruta: "/" },
-  { titulo: "Operadores", icono: userFilledRef, ruta: "/operadores" },
-  { titulo: "Gastos Directos", icono: moneyRef, ruta: "/gastos/directos" },
+  { titulo: "Home", icono: "las la-home", ruta: "/" },
+  {
+    titulo: "Operadores",
+    icono: "las la-user",
+    ruta: "/operadores",
+  },
+  {
+    titulo: "Gastos Directos",
+    icono: "las la-receipt",
+    ruta: "/gastos/directos",
+  },
   {
     titulo: "Nóminas Operadores",
-    icono: walletRef,
+    icono: "las la-comment-dollar",
     ruta: "/nominas/operadores",
+  },
+  {
+    titulo: "Deducciones",
+    icono: "las la-file-invoice",
+    ruta: "/deducciones",
   },
 ]);
 const props = defineProps({

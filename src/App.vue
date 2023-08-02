@@ -74,7 +74,8 @@ onBeforeUnmount(() => {
 }
 
 .el-header {
-  background-color: $background;
+  // background-color: $background;
+  background-color: $background-primary;
   display: flex;
   align-items: center;
   justify-content: space-between;
