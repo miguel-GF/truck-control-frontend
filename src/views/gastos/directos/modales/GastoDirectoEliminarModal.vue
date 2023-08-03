@@ -2,7 +2,7 @@
   <TheDialog
     :mostrar="mostrar"
     titulo="Eliminar Gasto Directo"
-    tipo="warning"
+    tipo="error"
     @cerrar="cerrar()"
     @confirmar="eliminarGastoDirecto()"
   >

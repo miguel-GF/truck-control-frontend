@@ -2,7 +2,7 @@
   <TheDialog
     :mostrar="mostrar"
     titulo="Eliminar Operador"
-    tipo="warning"
+    tipo="error"
     @cerrar="cerrar()"
     @confirmar="eliminarOperador()"
   >

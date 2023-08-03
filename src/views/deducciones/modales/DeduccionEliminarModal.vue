@@ -2,7 +2,7 @@
   <TheDialog
     :mostrar="mostrar"
     titulo="Eliminar Deducción"
-    tipo="warning"
+    tipo="error"
     @cerrar="cerrar()"
     @confirmar="eliminarDeduccion()"
   >
