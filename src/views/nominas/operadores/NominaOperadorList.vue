@@ -12,7 +12,7 @@ const { filtradosNominasOperadores } = storeToRefs(useOperador);
 const { isMobile } = storeToRefs(useApp);
 const { listar } = useOperador;
 const mostrarEliminar = ref(false);
-const operadorObj = ref({});
+const nominaOperadorObj = ref({});
 const showLoading = inject("$showLoading");
 const formatearNumero = inject("$formatearNumero");
 const columnas = ref([
@@ -95,7 +95,7 @@ onBeforeMount(async () => {
   }
 });
 const abrirEliminar = (row) => {
-  operadorObj.value = row;
+  nominaOperadorObj.value = row;
   mostrarEliminar.value = true;
 };
 const cerrarEliminar = () => (mostrarEliminar.value = false);
@@ -150,7 +150,7 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
   </el-table>
   <EliminarModal
     :mostrar="mostrarEliminar"
-    :operadorObj="operadorObj"
+    :nominaOperadorObj="nominaOperadorObj"
     @cerrar="cerrarEliminar()"
   />
 </template>

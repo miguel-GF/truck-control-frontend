@@ -57,11 +57,12 @@ export const useGastoDirectoStore = defineStore("gastos-directos", () => {
         (o) => Number(o.id) === Number(datos.id)
       );
       if (index >= 0) {
-        gastosDirectos.value[index].cantidad = datos.cantidad;
-        gastosDirectos.value[index].precio = datos.precio;
-        gastosDirectos.value[index].total = datos.total;
-        gastosDirectos.value[index].aplicacionFecha = datos.aplicacion_fecha;
-        gastosDirectos.value[index].comentario = datos.comentario;
+        gastosDirectos.value[index] = datos;
+        // gastosDirectos.value[index].cantidad = datos.cantidad;
+        // gastosDirectos.value[index].precio = datos.precio;
+        // gastosDirectos.value[index].total = datos.total;
+        // gastosDirectos.value[index].aplicacionFecha = datos.aplicacion_fecha;
+        // gastosDirectos.value[index].comentario = datos.comentario;
       }
       return respuesta;
     } catch (error) {

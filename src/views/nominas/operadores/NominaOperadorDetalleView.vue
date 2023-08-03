@@ -6,11 +6,18 @@
     @agregar="abrirAgregar()"
   >
     <template #acciones>
-      <el-dropdown split-button type="primary" @click="recalcularNomina()">
+      <el-dropdown
+        :disabled="Number(datosPrincipales.status) != 200"
+        split-button
+        type="primary"
+        @click="recalcularNomina()"
+      >
         Recalcular
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>Cerrar Nómina</el-dropdown-item>
+            <el-dropdown-item @click="cambiarMostrarNominaOperador(true)"
+              >Cerrar Nómina</el-dropdown-item
+            >
             <el-dropdown-item @click="recalcularNomina()"
               >Recalcular</el-dropdown-item
             >
@@ -25,6 +32,12 @@
       <TabConcentrado />
     </template>
   </ContainerTabsLayout>
+  <NominaOperadorCerrarModal
+    :mostrar="mostrarNominaOperador"
+    :nominaOperadorObj="datosPrincipales"
+    @cerrar="cambiarMostrarNominaOperador(false)"
+    @exito="exitoCerrar"
+  />
 </template>
 
 <script setup>
@@ -42,11 +55,15 @@ const TabDatos = defineAsyncComponent({
 const TabConcentrado = defineAsyncComponent(() =>
   import("./detalle/NominaOperadorConcentradoOperadoresTab.vue")
 );
+const NominaOperadorCerrarModal = defineAsyncComponent(() =>
+  import("./modales/NominaOperadorCerrarModal.vue")
+);
 const datosPrincipales = ref({});
 const breadcrumbs = ref([
   { path: "/nominas/operadores", label: "Nómina Operadores" },
   { label: "Detalle" },
 ]);
+const mostrarNominaOperador = ref(false);
 const showLoading = inject("$showLoading");
 const mostrarMensaje = inject("$mostrarMensaje");
 const getDetalle = async () => {
@@ -77,5 +94,11 @@ const recalcularNomina = async () => {
   } finally {
     showLoading(false);
   }
+};
+const cambiarMostrarNominaOperador = (value) =>
+  (mostrarNominaOperador.value = value);
+const exitoCerrar = (value) => {
+  datosPrincipales.value = value;
+  cambiarMostrarNominaOperador(false);
 };
 </script>

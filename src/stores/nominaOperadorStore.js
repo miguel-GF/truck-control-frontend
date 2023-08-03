@@ -81,7 +81,18 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
   const recalcular = async (datosEditar) => {
     try {
       const id = datosEditar.id;
-      await patch(`${endPoint}/recalcular`, datosEditar);
+      await patch(`${endPoint}/recalcular/${id}`, datosEditar);
+      const res = await get(`${endPoint}/${id}`);
+      detalleNomina.value = res.datos;
+      return res;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+  const cerrarNomina = async (datosEditar) => {
+    try {
+      const id = datosEditar.id;
+      await patch(`${endPoint}/cerrar/${id}`, datosEditar);
       const res = await get(`${endPoint}/${id}`);
       detalleNomina.value = res.datos;
       return res;
@@ -100,5 +111,6 @@ export const useNominaOperadorStore = defineStore("nominas-operadores", () => {
     editar,
     eliminar,
     recalcular,
+    cerrarNomina,
   };
 });

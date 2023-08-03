@@ -33,12 +33,7 @@
               {{ props.datosPrincipales.registro_fecha || "--" }}
             </template>
           </TheRowInfo>
-          <TheRowInfo label="Total" :darkMode="true">
-            <template #value>
-              {{ $formatearNumero(props.datosPrincipales.total, "currency") }}
-            </template>
-          </TheRowInfo>
-          <TheRowInfo label="Total Gastos">
+          <TheRowInfo label="Total Gastos +">
             <template #value>
               {{
                 $formatearNumero(
@@ -48,7 +43,7 @@
               }}
             </template>
           </TheRowInfo>
-          <TheRowInfo label="Total Deducciones" :darkMode="true">
+          <TheRowInfo label="Total Deducciones -" :darkMode="true">
             <template #value>
               {{
                 $formatearNumero(
@@ -56,6 +51,11 @@
                   "currency"
                 )
               }}
+            </template>
+          </TheRowInfo>
+          <TheRowInfo label="Total" :darkMode="true">
+            <template #value>
+              {{ $formatearNumero(props.datosPrincipales.total, "currency") }}
             </template>
           </TheRowInfo>
         </el-col>

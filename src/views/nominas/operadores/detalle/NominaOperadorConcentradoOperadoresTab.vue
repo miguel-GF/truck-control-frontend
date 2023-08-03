@@ -28,8 +28,8 @@ const formatearNumero = inject("$formatearNumero");
 const columnas = ref([
   {
     id: "operador",
-    prop: "operdor",
-    label: "Operdor",
+    prop: "operador",
+    label: "Operador",
     sortable: true,
     formatter: (row) => row.nombre_operador ?? "--",
     minWidth: "100px",

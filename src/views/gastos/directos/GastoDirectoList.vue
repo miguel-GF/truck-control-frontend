@@ -49,6 +49,14 @@ const columnas = ref([
     minWidth: "200px",
   },
   {
+    id: "nomina",
+    prop: "nomina_folio",
+    label: "Nomina",
+    sortable: true,
+    formatter: (row) => row.nomina_folio ?? "--",
+    minWidth: "100px",
+  },
+  {
     id: "cantidad",
     prop: "cantidad",
     label: "Cantidad",
@@ -145,7 +153,10 @@ const cerrarEliminar = () => (mostrarEliminar.value = false);
         />
       </template>
       <template v-else-if="columna.id == 'opciones'" #default="scope">
-        <el-row justify="space-around" v-if="Number(scope.row.status) == 200">
+        <el-row
+          justify="space-around"
+          v-if="Number(scope.row.status) == 200 && !scope.row.nomina_id"
+        >
           <div>
             <el-tooltip content="Editar" placement="left-start">
               <el-icon

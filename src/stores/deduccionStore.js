@@ -57,11 +57,12 @@ export const useDeduccionStore = defineStore("deducciones", () => {
         (o) => Number(o.id) === Number(datos.id)
       );
       if (index >= 0) {
-        deducciones.value[index].cantidad = datos.cantidad;
-        deducciones.value[index].precio = datos.precio;
-        deducciones.value[index].total = datos.total;
-        deducciones.value[index].aplicacionFecha = datos.aplicacion_fecha;
-        deducciones.value[index].comentario = datos.comentario;
+        deducciones.value[index] = datos;
+        // deducciones.value[index].precio = datos.precio;
+        // deducciones.value[index].total = datos.total;
+        // deducciones.value[index].aplicacionFecha = datos.aplicacion_fecha;
+        // deducciones.value[index].comentario = datos.comentario;
+        // deducciones.value[index].comentario = datos.comentario;
       }
       return respuesta;
     } catch (error) {
