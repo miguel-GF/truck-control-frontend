@@ -1,4 +1,5 @@
 # truck-control-frontend
+Proyecto desarrollado con Vue3, Element Plus
 
 ## Project setup
 ```
